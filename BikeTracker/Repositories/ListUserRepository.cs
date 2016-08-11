@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BikeTracker.Entities;
 
@@ -14,6 +15,11 @@ namespace BikeTracker.Repositories
             return userCollection.FirstOrDefault(u => u.UserId == id);
         }
 
+        public IEnumerable<User> GetAll()
+        {
+            return userCollection;
+        }
+
         public long Save(User user)
         {
             lock (locker)
@@ -23,9 +29,14 @@ namespace BikeTracker.Repositories
                 {
                     userCollection.Remove(existingUser);
                     user.UserId = existingUser.UserId;
-                } else
+                }
+                else if (userCollection.Any())
                 {
                     user.UserId = userCollection.Max(u => u.UserId) + 1;
+                }
+                else
+                {
+                    user.UserId = 1;
                 }
                 userCollection.Add(user);
                 return user.UserId;

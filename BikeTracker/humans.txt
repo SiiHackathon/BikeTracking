@@ -1,0 +1,51 @@
+/* TEAM */
+
+
+    Jakub Kulesza
+    From: Gdansk, Poland
+
+
+    Dragos Boldea
+    From: Gdansk, Poland
+
+
+    Slawomir Aleksiuk
+    From: Gdansk, Poland
+
+
+    Michal Hryniewicz
+    From: Gdansk, Poland
+
+
+    Dawid Jankowski
+    From: Gdansk, Poland
+
+
+    Lukasz Awerjanow
+    From: Gdansk, Poland
+
+
+    Jakub Baczynski
+    From: Gdansk, Poland
+
+
+    Maciej Malkowski
+    From: Gdansk, Poland
+
+
+    Rafal Osko
+    From: Gdynia, Poland
+
+
+/* THANKS */
+
+
+    All for support!:)
+
+
+/* SITE */
+
+                            
+    Released: 2016/08/11     
+    Language: Polish
+    Software: ASP.NET

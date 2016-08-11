@@ -12,6 +12,7 @@
 
 @section scripts
 {
+    <script src="~/Scripts/BikeOnMap.js"></script>
     <script>
         var map;
         var route;
@@ -22,14 +23,26 @@
           });
 
           var directionsService = new google.maps.DirectionsService();
+          // TO pass points form server
           var request = {
-              origin: '52.229798,21.012157',
+              origin: '54.402658,18.572466',
               destination: '52.954730,-1.158253',
               travelMode: 'BICYCLING'
           };
+          var directionsDisplay = new google.maps.DirectionsRenderer();
+          directionsDisplay.setMap(map);
           directionsService.route(request, function (result, status) {
               if (status == 'OK') {
                   route = result;
+                  directionsDisplay.setDirections(route);
+
+                  // to add points from server
+                  var point = Sii.findPositionOnRoute(213632, route.routes[0].legs[0]);
+                  var marker = new google.maps.Marker({
+                      position: point,
+                      map: map,
+                      title: 'I am here!'
+                  });
               }
           });
       };
