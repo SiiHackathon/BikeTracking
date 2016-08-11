@@ -51,6 +51,7 @@ _Resharper.*
 *.user
 */bin/*
 */obj/*
+.vs
 
 # Jetbrains #
 #############
