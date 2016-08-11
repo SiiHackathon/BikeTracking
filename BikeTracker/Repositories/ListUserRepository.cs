@@ -6,39 +6,38 @@ namespace BikeTracker.Repositories
 {
     public class ListUserRepository : IUserRepository
     {
-        private static object locker = new object();
-        private static ICollection<User> userCollection = new List<User>();
+        private static readonly object _locker = new object();
+        private static readonly ICollection<User> _userCollection = new List<User>();
 
         public User GetById(long id)
         {
-            return userCollection.FirstOrDefault(u => u.UserId == id);
+            return _userCollection.FirstOrDefault(u => u.UserId == id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return userCollection;
+            return _userCollection;
         }
 
-        public long Save(User user)
+        public void Save(User user)
         {
-            lock (locker)
+            lock (_locker)
             {
                 var existingUser = GetById(user?.UserId ?? 0);
                 if (existingUser != null)
                 {
-                    userCollection.Remove(existingUser);
+                    _userCollection.Remove(existingUser);
                     user.UserId = existingUser.UserId;
                 }
-                else if (userCollection.Any())
+                else if (_userCollection.Any())
                 {
-                    user.UserId = userCollection.Max(u => u.UserId) + 1;
+                    user.UserId = _userCollection.Max(u => u.UserId) + 1;
                 }
                 else
                 {
                     user.UserId = 1;
                 }
-                userCollection.Add(user);
-                return user.UserId;
+                _userCollection.Add(user);
             }
         }
     }

@@ -9,6 +9,6 @@ namespace BikeTracker.Repositories
 
         IEnumerable<User> GetAll();
 
-        long Save(User user);
+        void Save(User user);
     }
 }

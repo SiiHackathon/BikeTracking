@@ -19,7 +19,7 @@ namespace BikeTracker.Repositories
             return teamCollection;
         }
 
-        public long Save(Team team)
+        public void Save(Team team)
         {
             lock (locker)
             {
@@ -38,7 +38,6 @@ namespace BikeTracker.Repositories
                     team.TeamId = 1;
                 }
                 teamCollection.Add(team);
-                return team.TeamId;
             }
         }
     }
