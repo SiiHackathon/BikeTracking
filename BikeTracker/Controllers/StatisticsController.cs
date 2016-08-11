@@ -11,7 +11,6 @@ namespace BikeTracker.Controllers
         // GET: Statistics
         public ActionResult Index()
         {
-
             return View();
         }
     }
