@@ -12,19 +12,19 @@ namespace BikeTracker.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateUserRepository.GetAll().Select(ConvertToViewModel));
+            return View(RepositoryFactory.CreateUserRepository.GetAll().Select(ConvertToViewModel).ToArray());
         }
 
         // GET: User/Details/5
         public ActionResult Details(long id)
         {
-            return View(ConvertToViewModel(RepositoryFactory.CreateUserRepository.GetById(id)));
+            return View(GetById(id));
         }
 
         // GET: User/Create
         public ActionResult Create()
         {
-            return View();
+            return View(GetById(0));
         }
 
         // POST: User/Create
@@ -33,11 +33,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                RepositoryFactory.CreateUserRepository.Save(new User
-                {
-                    FirstName = user.FirstName,
-                    LastName = user.LastName
-                });
+                RepositoryFactory.CreateUserRepository.Save(ConvertToEntity(user));
 
                 return RedirectToAction("Index");
             }
@@ -48,18 +44,18 @@ namespace BikeTracker.Controllers
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
-            return View();
+            return View(GetById(id));
         }
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UserViewModel user)
         {
             try
             {
-                // TODO: Add update logic here
+                RepositoryFactory.CreateUserRepository.Save(ConvertToEntity(user));
 
                 return RedirectToAction("Index");
             }
@@ -91,13 +87,34 @@ namespace BikeTracker.Controllers
             }
         }
 
+        private UserViewModel GetById(long userId)
+        {
+            var user = ConvertToViewModel(RepositoryFactory.CreateUserRepository.GetById(userId));
+            user.AvailableTeams = RepositoryFactory.CreateTeamRepository.GetAll()
+                .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name }).ToArray();
+            return user;
+        }
+
         private UserViewModel ConvertToViewModel(User user)
         {
             return new UserViewModel
             {
                 UserId = user?.UserId ?? 0,
                 FirstName = user?.FirstName,
-                LastName = user?.LastName
+                LastName = user?.LastName,
+                TeamId = user?.TeamId ?? 0,
+                TeamName = RepositoryFactory.CreateTeamRepository.GetById(user?.TeamId ?? 0)?.Name
+            };
+        }
+
+        private User ConvertToEntity(UserViewModel user)
+        {
+            return new User
+            {
+                UserId = user.UserId,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                TeamId = user.TeamId
             };
         }
     }
