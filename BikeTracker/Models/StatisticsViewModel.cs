@@ -4,6 +4,5 @@
     {
         public long KilometersPassed { get; set; }
         public long tralalal { get; set; }
-
     }
 }
