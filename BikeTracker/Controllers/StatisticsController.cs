@@ -11,7 +11,11 @@ namespace BikeTracker.Controllers
         // GET: Statistics
         public ActionResult Index()
         {
-            return View();
+            return View(new Models.StatisticsViewModel()
+            {
+                KilometersPassed = 12345,
+                tralalal = 123456,
+            });
         }
     }
 }
