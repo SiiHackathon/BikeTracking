@@ -2,7 +2,7 @@
 {
     public class StatisticsViewModel
     {
-        public long KilometersPassed { get; set; }
-        public long tralalal { get; set; }
+        public long AllKilometersPassed { get; set; }
+        public long AverageKilometersPassedByUser { get; set; }
     }
 }

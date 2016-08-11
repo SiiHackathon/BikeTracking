@@ -13,8 +13,8 @@ namespace BikeTracker.Controllers
         {
             return View(new Models.StatisticsViewModel()
             {
-                KilometersPassed = 12345,
-                tralalal = 123456,
+                AllKilometersPassed = 12345,
+                AverageKilometersPassedByUser = 12, // TODO: wziąć z bazy
             });
         }
     }
