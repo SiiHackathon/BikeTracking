@@ -12,7 +12,7 @@ namespace BikeTracker.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateUserRepository.GetAll().Select(ConvertToViewModel));
+            return View(RepositoryFactory.CreateUserRepository.GetAll().Select(ConvertToViewModel).ToArray());
         }
 
         // GET: User/Details/5
@@ -48,14 +48,14 @@ namespace BikeTracker.Controllers
         }
 
         // GET: User/Edit/5
-        public ActionResult Edit(int id)
+        public ActionResult Edit(long id)
         {
             return View();
         }
 
         // POST: User/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Edit(UserViewModel user)
         {
             try
             {
