@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+	ViewBag.Title = "Home Page";
 }
 
 <div id="map"></div>
@@ -27,41 +27,58 @@
 
 @section scripts
 {
-    <script src="~/Scripts/BikeOnMap.js"></script>
-    <script>
-        var map;
-        var route;
-      function initMap() {
-          map = new google.maps.Map(document.getElementById('map'), {
-              center: { lat: 52.354, lng: 370.17246 },
-              zoom: 6
-          });
+	<script src="~/Scripts/BikeOnMap.js"></script>
+	<script>
+		var map;
+		var route;
+		function initMap() {
 
-          var directionsService = new google.maps.DirectionsService();
-          // TO pass points form server
-          var request = {
-              origin: '54.402658,18.572466',
-              destination: '52.954730,-1.158253',
-              travelMode: 'BICYCLING'
-          };
-          var directionsDisplay = new google.maps.DirectionsRenderer();
-          directionsDisplay.setMap(map);
-          directionsService.route(request, function (result, status) {
-              if (status == 'OK') {
-                  route = result;
-                  directionsDisplay.setDirections(route);
+			//var styles = [{ "featureType": "landscape", "stylers": [{ "saturation": -100 }, { "lightness": 65 }, { "visibility": "on" }] }, { "featureType": "poi", "stylers": [{ "saturation": -100 }, { "lightness": 51 }, { "visibility": "simplified" }] }, { "featureType": "road.highway", "stylers": [{ "saturation": -100 }, { "visibility": "simplified" }] }, { "featureType": "road.arterial", "stylers": [{ "saturation": -100 }, { "lightness": 30 }, { "visibility": "on" }] }, { "featureType": "road.local", "stylers": [{ "saturation": -100 }, { "lightness": 40 }, { "visibility": "on" }] }, { "featureType": "transit", "stylers": [{ "saturation": -100 }, { "visibility": "simplified" }] }, { "featureType": "administrative.province", "stylers": [{ "visibility": "off" }] }, { "featureType": "water", "elementType": "labels", "stylers": [{ "visibility": "on" }, { "lightness": -25 }, { "saturation": -100 }] }, { "featureType": "water", "elementType": "geometry", "stylers": [{ "hue": "#ffff00" }, { "lightness": -25 }, { "saturation": -97 }] }];
+			//var styledMap = new google.maps.StyledMapType(styles, { name: "Styled Map" });
+			var mapOptions = {
+				zoom: 6,
+				center: new google.maps.LatLng(52.354, 370.17246),
+				mapTypeId: google.maps.MapTypeId.ROADMAP,
+				disableDefaultUI: true,
+				scrollwheel: false,
+				navigationControl: false,
+				mapTypeControl: false,
+				scaleControl: false,
+				draggable: true
+			};
 
-                  // to add points from server
-                  var point = Sii.findPositionOnRoute(213632, route.routes[0].legs[0]);
-                  var marker = new google.maps.Marker({
-                      position: point,
-                      map: map,
-                      title: 'I am here!'
-                  });
-              }
-          });
-      };
-      
-    </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleApiKey"])&callback=initMap" async defer></script>
+			map = new google.maps.Map(document.getElementById('map', mapOptions), {
+				
+			});
+
+			//map.mapTypes.set('map_style', styledMap);
+			//map.setMapTypeId('map_style');
+
+			var directionsService = new google.maps.DirectionsService();
+			// TO pass points form server
+			var request = {
+				origin: '54.402658,18.572466',
+				destination: '52.954730,-1.158253',
+				travelMode: 'BICYCLING'
+			};
+			var directionsDisplay = new google.maps.DirectionsRenderer();
+			directionsDisplay.setMap(map);
+			directionsService.route(request, function (result, status) {
+				if (status == 'OK') {
+					route = result;
+					directionsDisplay.setDirections(route);
+
+					// to add points from server
+					var point = Sii.findPositionOnRoute(213632, route.routes[0].legs[0]);
+					var marker = new google.maps.Marker({
+						position: point,
+						map: map,
+						title: 'I am here!'
+					});
+				}
+			});
+		};
+
+	</script>
+	<script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleApiKey"])&callback=initMap" async defer></script>
 }
