@@ -6,6 +6,6 @@ namespace BikeTracker.Entities
     {
         public long UserId { get; set; }
         public DateTime CreatedOn { get; set; }
-        public decimal Length { get; set; }
+        public int Length { get; set; }
     }
 }

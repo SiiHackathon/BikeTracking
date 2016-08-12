@@ -1,5 +1,51 @@
 ﻿var Sii = Sii || {};
 
+Sii.loadRoute = function (map, url, teamsUrl, callback) {
+    $.ajax({
+        url: url,
+        success: function (data) {
+            callback(map, data, teamsUrl);
+        }
+    })
+};
+
+Sii.displayRoute = function (map, route, teamsUrl) {
+    var request = {
+        origin: route.Origin,
+        destination: route.Destination,
+        travelMode: 'BICYCLING'
+    };
+    var directionsService = new google.maps.DirectionsService();
+    var directionsDisplay = new google.maps.DirectionsRenderer();
+    directionsDisplay.setMap(map);
+    directionsService.route(request, function (result, status) {
+        if (status == 'OK') {
+            directionsDisplay.setDirections(result);
+            Sii.loadTeams(map, result.routes[0].legs[0], teamsUrl);
+        }
+    });
+};
+
+Sii.loadTeams = function (map, route, teamsUrl) {
+    $.ajax({
+        url: teamsUrl,
+        success: function (data) {
+            $.each(data, function (index, team) {
+                Sii.addTeamMarker(map, route, team);
+            });
+        }
+    });
+};
+
+Sii.addTeamMarker = function (map, route, team) {
+    var point = Sii.findPositionOnRoute(team.currentDistance, route);
+    var marker = new google.maps.Marker({
+        position: point,
+        map: map,
+        title: team.Name
+    });
+};
+
 Sii.getDistance = function (start, end) {
     var lat1 = start.lat();
     var lon1 = start.lng();
