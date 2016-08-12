@@ -33,6 +33,7 @@ Sii.loadTeams = function (map, teamsUrl) {
         success: function (data) {
             $.each(data, function (index, team) {
                 Sii.addTeamMarker(map, team);
+                Sii.addTableRow(team);
             });
         }
     });
@@ -46,6 +47,13 @@ Sii.addTeamMarker = function (map, team) {
         title: team.Name
     });
 };
+
+Sii.addTableRow = function (team) {
+    var row = '<tr><td>' + team.Name + '</td><td>'
+        + Math.round(team.CurrentDistance / 100) / 10 + ' km</td><td>'
+        + Math.round((Sii.route.distance.value - team.CurrentDistance) / 100) / 10 + ' km</td></tr>';
+    $('#users-scores-table > table').append(row);
+}
 
 Sii.getDistance = function (start, end) {
     var lat1 = start.lat();
