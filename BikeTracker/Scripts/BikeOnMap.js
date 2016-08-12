@@ -38,7 +38,7 @@ Sii.loadTeams = function (map, route, teamsUrl) {
 };
 
 Sii.addTeamMarker = function (map, route, team) {
-    var point = Sii.findPositionOnRoute(team.currentDistance, route);
+    var point = Sii.findPositionOnRoute(team.CurrentDistance, route);
     var marker = new google.maps.Marker({
         position: point,
         map: map,
