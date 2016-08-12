@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BikeTracker.Entities;
 
@@ -38,6 +39,18 @@ namespace BikeTracker.Repositories
                     user.UserId = 1;
                 }
                 _userCollection.Add(user);
+            }
+        }
+
+        public void DeleteById(long userId)
+        {
+            lock (_locker)
+            {
+                var existingUser = GetById(userId);
+                if (existingUser != null)
+                {
+                    _userCollection.Remove(existingUser);
+                }
             }
         }
     }
