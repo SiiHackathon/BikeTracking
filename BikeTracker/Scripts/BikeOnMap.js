@@ -21,24 +21,25 @@ Sii.displayRoute = function (map, route, teamsUrl) {
     directionsService.route(request, function (result, status) {
         if (status == 'OK') {
             directionsDisplay.setDirections(result);
-            Sii.loadTeams(map, result.routes[0].legs[0], teamsUrl);
+            Sii.route = result.routes[0].legs[0];
+            Sii.loadTeams(map, teamsUrl);
         }
     });
 };
 
-Sii.loadTeams = function (map, route, teamsUrl) {
+Sii.loadTeams = function (map, teamsUrl) {
     $.ajax({
         url: teamsUrl,
         success: function (data) {
             $.each(data, function (index, team) {
-                Sii.addTeamMarker(map, route, team);
+                Sii.addTeamMarker(map, team);
             });
         }
     });
 };
 
-Sii.addTeamMarker = function (map, route, team) {
-    var point = Sii.findPositionOnRoute(team.CurrentDistance, route);
+Sii.addTeamMarker = function (map, team) {
+    var point = Sii.findPositionOnRoute(team.CurrentDistance, Sii.route);
     var marker = new google.maps.Marker({
         position: point,
         map: map,
