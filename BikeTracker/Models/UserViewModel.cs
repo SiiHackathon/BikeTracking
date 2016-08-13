@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BikeTracker.Models
 {
@@ -8,8 +8,12 @@ namespace BikeTracker.Models
         public long UserId { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public long TeamId { get; set; }
+        [DisplayName("Raider")]
+        public string Name { get { return string.Join(" ", FirstName, LastName); } }
+        [DisplayName("Team")]
         public string TeamName { get; set; }
-        public IEnumerable<SelectListItem> AvailableTeams { get; set; }
+        [DisplayName("Total Distance")]
+        [UIHint("Distance")]
+        public decimal TotalDistance { get; set; }
     }
 }
