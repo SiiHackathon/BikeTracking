@@ -27,5 +27,15 @@ namespace BikeTracker.Repositories
 
             _dbContext.SaveChanges();
         }
+
+        public bool Delete(long id)
+        {
+            var team = _dbContext.Teams.SingleOrDefault(x => x.TeamId == id);
+            if (team == null)
+                return false;
+            _dbContext.Teams.Remove(team);
+            _dbContext.SaveChanges();
+            return true;
+        }
     }
 }

@@ -10,8 +10,17 @@
         </div>
         <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li>@Html.ActionLink("Riders", "Index", "User")</li>
-                <li>@Html.ActionLink("Teams", "Index", "Team")</li>
+                @if (Request.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Add distance", "Add", "Distance")</li>
+                    <li>@Html.ActionLink("Manage riders", "List", "User")</li>
+                    <li>@Html.ActionLink("Manage teams", "List", "Team")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Riders", "Index", "User")</li>
+                    <li>@Html.ActionLink("Teams", "Index", "Team")</li>
+                }
                 <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
                 <li>@Html.ActionLink("About", "About", "Home")</li>
                 <li>@Html.ActionLink("Contact", "Contact", "Home")</li>

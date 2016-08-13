@@ -10,5 +10,7 @@ namespace BikeTracker.Repositories
         IEnumerable<Team> GetAll();
 
         void Save(Team team);
+
+        bool Delete(long id);
     }
 }

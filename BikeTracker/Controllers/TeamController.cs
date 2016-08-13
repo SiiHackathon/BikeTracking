@@ -3,55 +3,43 @@ using BikeTracker.Models;
 using BikeTracker.Repositories;
 using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
 
 namespace BikeTracker.Controllers
 {
     public class TeamController : Controller
     {
-        // GET: Team
+        private ITeamRepository _teamRepository;
+
+        public TeamController()
+        {
+            _teamRepository = RepositoryFactory.CreateTeamRepository;
+        }
+
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateTeamRepository.GetAll().Select(ConvertToViewModel).ToArray());
+            return View(_teamRepository.GetAll().Select(Mapper.Map<TeamViewModel>));
         }
 
-        // GET: Team/Details/5
         public ActionResult Details(long id)
         {
-            return View(ConvertToViewModel(RepositoryFactory.CreateTeamRepository.GetById(id)));
+            return View(Mapper.Map<TeamViewModel>(_teamRepository.GetById(id)));
         }
-
-        // GET: Team/Create
-        public ActionResult Create()
+        
+        [Authorize]
+        public ActionResult List()
         {
-            return View();
+            return View(_teamRepository.GetAll().Select(Mapper.Map<TeamViewModel>));
         }
-
-        // POST: Team/Create
-        [HttpPost]
-        public ActionResult Create(TeamViewModel team)
-        {
-            try
-            {
-                RepositoryFactory.CreateTeamRepository.Save(new Team
-                {
-                    Name = team.Name
-                });
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Team/Edit/5
+        
+        [Authorize]
         public ActionResult Edit(long id)
         {
-            return View();
+            Team team = (id == 0) ? new Team() : _teamRepository.GetById(id);
+            return View(Mapper.Map<TeamViewModel>(team));
         }
 
-        // POST: Team/Edit/5
         [HttpPost]
         public ActionResult Edit(TeamViewModel team)
         {
@@ -67,35 +55,13 @@ namespace BikeTracker.Controllers
             }
         }
 
-        // GET: Team/Delete/5
+        [Authorize]
+        [HttpPost]
         public ActionResult Delete(long id)
         {
-            return View();
+            _teamRepository.Delete(id);
+            return RedirectToAction("Index");
         }
-
-        // POST: Team/Delete/5
-        [HttpPost]
-        public ActionResult Delete(long id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        private TeamViewModel ConvertToViewModel(Team team)
-        {
-            return new TeamViewModel
-            {
-                TeamId = team?.TeamId ?? 0,
-                Name = team?.Name
-            };
-        }
+        
     }
 }

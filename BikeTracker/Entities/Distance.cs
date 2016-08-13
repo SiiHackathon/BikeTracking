@@ -4,6 +4,7 @@ namespace BikeTracker.Entities
 {
     public class Distance
     {
+        public long DistanceId { get; set; }
         public long UserId { get; set; }
         public DateTime CreatedOn { get; set; }
         public int Length { get; set; }

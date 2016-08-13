@@ -23,24 +23,24 @@ namespace BikeTracker.Controllers
 
         public JsonResult GetTeamStandings()
         {
-            //var teamRepo = RepositoryFactory.CreateTeamRepository;
-            //var teams = teamRepo.GetAll()
-            //    .Where(t => !t.HasFinished)
-            //    .Select(ConvertToTeamModel);
+            var teamRepo = RepositoryFactory.CreateTeamRepository;
+            var teams = teamRepo.GetAll()
+                .Where(t => !t.HasFinished)
+                .Select(ConvertToTeamModel);
 
-            var teams = new List<TeamStandingsModel>();
-            teams.Add(new TeamStandingsModel
-            {
-                TeamId = 1,
-                Name = "Webminions",
-                CurrentDistance = 659600
-            });
-            teams.Add(new TeamStandingsModel
-            {
-                TeamId = 2,
-                Name = "Someone",
-                CurrentDistance = 183000
-            });
+            //var teams = new List<TeamStandingsModel>();
+            //teams.Add(new TeamStandingsModel
+            //{
+            //    TeamId = 1,
+            //    Name = "Webminions",
+            //    CurrentDistance = 659600
+            //});
+            //teams.Add(new TeamStandingsModel
+            //{
+            //    TeamId = 2,
+            //    Name = "Someone",
+            //    CurrentDistance = 183000
+            //});
 
             return Json(teams, JsonRequestBehavior.AllowGet);
         }

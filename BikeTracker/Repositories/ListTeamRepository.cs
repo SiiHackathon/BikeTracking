@@ -40,5 +40,18 @@ namespace BikeTracker.Repositories
                 teamCollection.Add(team);
             }
         }
+
+        public bool Delete(long id)
+        {
+            lock (locker)
+            {
+                var existingUser = GetById(id);
+                if (existingUser != null)
+                {
+                    return teamCollection.Remove(existingUser);
+                }
+                return false;
+            }
+        }
     }
 }
