@@ -3,15 +3,14 @@ using System.Web.Mvc;
 using AutoMapper;
 using BikeTracker.Entities;
 using BikeTracker.Models;
-using BikeTracker.Repositories;
 
 namespace BikeTracker.Controllers
 {
-    public class DistanceController : Controller
+    public class ActivityController : Controller
     {
         public ActionResult Add()
         {
-            var model = new AddDistanceViewModel
+            var model = new AddActivityViewModel
             {
                 CreatedOn = DateTime.Today,
                 ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
@@ -20,33 +19,33 @@ namespace BikeTracker.Controllers
         }
 
         [HttpPost]
-        public ActionResult Add(AddDistanceViewModel model)
+        public ActionResult Add(AddActivityViewModel model)
         {
             try
             {
                 if (!ModelState.IsValid)
                     return View(model);
 
-                var rider = RepositoryFactory.CreateUserRepository.GetById(model.UserId);
+                var rider = DependencyFactory.CreateUserRepository.GetById(model.UserId);
                 if (rider == null)
                 {
                     ModelState.AddModelError("UserId", "Invalid User Id");
                     return View(model);
                 }
-                var teamRepo = RepositoryFactory.CreateTeamRepository;
+                var teamRepo = DependencyFactory.CreateTeamRepository;
                 var team = teamRepo.GetById(rider.TeamId);
                 if (team == null)
                 {
                     ModelState.AddModelError("UserId", "User team not found");
                     return View(model);
                 }
-                var distance = Mapper.Map<Distance>(model);
+                var activity = Mapper.Map<Activity>(model);
                 team.CurrentDistance = (team.ReverseRoute) ?
-                    team.CurrentDistance - distance.Length :
-                    team.CurrentDistance + distance.Length;
+                    team.CurrentDistance - activity.Distance :
+                    team.CurrentDistance + activity.Distance;
 
                 teamRepo.Save(team);
-                RepositoryFactory.CreateDistanceRepository.Save(distance);
+                DependencyFactory.CreateActivityRepository.Save(activity);
 
                 return Redirect(model.ReturnUrl);
             }

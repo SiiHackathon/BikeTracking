@@ -3,11 +3,11 @@ using System.Collections.Generic;
 
 namespace BikeTracker.Repositories
 {
-    public interface ITeamRepository
+    public interface IActivityRepository
     {
-        Team GetById(long id);
-        IEnumerable<Team> GetAll();
-        void Save(Team team);
+        IEnumerable<Activity> GetByUserId(long userId);
+
+        void Save(Activity activity);
 
         bool DeleteById(long id);
     }

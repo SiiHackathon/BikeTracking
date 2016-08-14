@@ -2,7 +2,7 @@
 
 namespace BikeTracker.Models
 {
-    public class AddDistanceViewModel
+    public class AddActivityViewModel
     {
         public long UserId { get; set; }
         public DateTime CreatedOn { get; set; }

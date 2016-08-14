@@ -1,0 +1,27 @@
+﻿@model BikeTracker.Models.TeamDetailsViewModel
+
+@{
+    ViewBag.Title = "Team Details";
+}
+
+<h2>Team Details</h2>
+
+<div>
+    <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+    </dl>
+
+    <h4>@Html.DisplayNameFor(model => model.Users)</h4>
+    @Html.Partial("DetailsUsers", Model.Users)
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TeamId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

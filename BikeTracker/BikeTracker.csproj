@@ -174,26 +174,29 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\AjaxController.cs" />
-    <Compile Include="Controllers\DistanceController.cs" />
+    <Compile Include="Controllers\ActivityController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StatisticsController.cs" />
     <Compile Include="Controllers\TeamController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\BikeTrackerDbContext.cs" />
-    <Compile Include="Entities\Distance.cs" />
+    <Compile Include="Entities\Activity.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\AddDistanceViewModel.cs" />
+    <Compile Include="Models\AddActivityViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\StatisticsViewModel.cs" />
+    <Compile Include="Models\TeamDetailsUserViewModel.cs" />
     <Compile Include="Models\TeamStandingsModel.cs" />
+    <Compile Include="Models\TeamEditModel.cs" />
+    <Compile Include="Models\TeamDetailsViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\UserDetailsActivityViewModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
@@ -201,12 +204,15 @@
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\EFTeamRepository.cs" />
-    <Compile Include="Repositories\IDistanceRepository.cs" />
+    <Compile Include="Repositories\IActivityRepository.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
     <Compile Include="Repositories\IUserRepository.cs" />
+    <Compile Include="Repositories\ListActivityRepository.cs" />
     <Compile Include="Repositories\ListTeamRepository.cs" />
     <Compile Include="Repositories\ListUserRepository.cs" />
-    <Compile Include="Repositories\RepositoryFactory.cs" />
+    <Compile Include="DependencyFactory.cs" />
+    <Compile Include="Services\ActivityService.cs" />
+    <Compile Include="Services\IActivityService.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -280,7 +286,12 @@
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\DetailsActivities.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Distance.cshtml" />
-    <Content Include="Views\Distance\Add.cshtml" />
+    <Content Include="Views\Activity\Add.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\DetailsUsers.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

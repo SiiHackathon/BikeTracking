@@ -11,8 +11,8 @@ namespace BikeTracker
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Team, TeamViewModel>();
-                cfg.CreateMap<AddDistanceViewModel, Distance>()
-                .ForMember(d => d.Length, m => m.MapFrom(s => s.Length*1000));
+                cfg.CreateMap<AddActivityViewModel, Activity>()
+                .ForMember(d => d.Distance, m => m.MapFrom(s => s.Length*1000));
             });
         }
     }

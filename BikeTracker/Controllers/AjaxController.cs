@@ -23,7 +23,7 @@ namespace BikeTracker.Controllers
 
         public JsonResult GetTeamStandings()
         {
-            var teamRepo = RepositoryFactory.CreateTeamRepository;
+            var teamRepo = DependencyFactory.CreateTeamRepository;
             var teams = teamRepo.GetAll()
                 .Where(t => !t.HasFinished)
                 .Select(ConvertToTeamModel);

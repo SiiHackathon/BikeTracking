@@ -11,6 +11,6 @@ namespace BikeTracker.Data
 
 		public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
-        public DbSet<Distance> Distances { get; set; }
+        public DbSet<Activity> Activities { get; set; }
 	}
 }
