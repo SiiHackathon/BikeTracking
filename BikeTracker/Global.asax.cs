@@ -14,6 +14,7 @@ namespace BikeTracker
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+            AutomapperConfig.Configure();
 
             Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BikeTrackerDbContext>());
         }

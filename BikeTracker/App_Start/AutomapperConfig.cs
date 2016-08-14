@@ -3,7 +3,7 @@ using AutoMapper;
 using BikeTracker.Entities;
 using BikeTracker.Models;
 
-namespace BikeTracker.App_Start
+namespace BikeTracker
 {
     public static class AutomapperConfig
     {
@@ -11,6 +11,8 @@ namespace BikeTracker.App_Start
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Team, TeamViewModel>();
+                cfg.CreateMap<AddDistanceViewModel, Distance>()
+                .ForMember(d => d.Length, m => m.MapFrom(s => s.Length*1000));
             });
         }
     }
