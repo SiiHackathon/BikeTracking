@@ -1,11 +1,10 @@
 ﻿@model BikeTracker.Models.TeamEditModel
 
 @{
-    ViewBag.Title = "Edit Team";
+    ViewBag.Title = Model.TeamId == 0? "Create new Team" : "Edit Team";
 }
 
-<h2>Edit Team</h2>
-
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm())
 {
@@ -13,7 +12,7 @@
     
     <div class="form-horizontal">
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.TeamId);
+        @Html.HiddenFor(model => model.TeamId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })

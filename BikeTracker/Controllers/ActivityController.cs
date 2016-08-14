@@ -6,6 +6,7 @@ using BikeTracker.Models;
 
 namespace BikeTracker.Controllers
 {
+    [Authorize]
     public class ActivityController : Controller
     {
         public ActionResult Add()

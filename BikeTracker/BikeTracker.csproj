@@ -274,9 +274,7 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\User\Create.cshtml" />
     <Content Include="Views\Statistics\Index.cshtml" />
-    <Content Include="Views\Team\Create.cshtml" />
     <Content Include="Views\Team\Index.cshtml" />
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\Shared\_MapLayout.cshtml" />
@@ -292,6 +290,8 @@
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Team\DetailsUsers.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
+    <Content Include="Views\Team\List.cshtml" />
+    <Content Include="Views\User\List.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

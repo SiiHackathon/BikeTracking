@@ -1,22 +1,29 @@
 ﻿using BikeTracker.Entities;
 using BikeTracker.Models;
+using AutoMapper;
 using BikeTracker.Repositories;
 using System.Linq;
 using System.Web.Mvc;
 
 namespace BikeTracker.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
-        // GET: Team
+        [AllowAnonymous]
         public ActionResult Index()
         {
             return View(DependencyFactory.CreateTeamRepository.GetAll()
-                .Select(GetViewModel)
-                .ToArray());
+                .Select(Mapper.Map<TeamViewModel>));
+        }
+        
+        public ActionResult List()
+        {
+            return View(DependencyFactory.CreateTeamRepository.GetAll()
+                .Select(Mapper.Map<TeamViewModel>));
         }
 
-        // GET: Team/Details/5
+        [AllowAnonymous]
         public ActionResult Details(long id)
         {
             var team = DependencyFactory.CreateTeamRepository.GetById(id);
@@ -35,34 +42,17 @@ namespace BikeTracker.Controllers
                     .ToArray()
             });
         }
-
-        // GET: Team/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Team/Create
-        [HttpPost]
-        public ActionResult Create(TeamEditModel team)
-        {
-            return Save(team);
-        }
-
-        // GET: Team/Edit/5
+                
         public ActionResult Edit(long id)
         {
-            return View(GetById(id));
+            var model = (id == 0) ?
+                new TeamEditModel() :
+                Mapper.Map<TeamEditModel>(DependencyFactory.CreateTeamRepository.GetById(id));
+            return View(model);
         }
-
-        // POST: Team/Edit/5
+        
         [HttpPost]
         public ActionResult Edit(TeamEditModel team)
-        {
-            return Save(team);
-        }
-
-        private ActionResult Save(TeamEditModel team)
         {
             try
             {
@@ -79,20 +69,13 @@ namespace BikeTracker.Controllers
                 return View();
             }
         }
-
-        // GET: Team/Delete/5
-        public ActionResult Delete(long id)
-        {
-            return View(GetViewModel(DependencyFactory.CreateTeamRepository.GetById(id)));
-        }
-
-        // POST: Team/Delete/5
+        
         [HttpPost]
-        public ActionResult Delete(long teamId, FormCollection collection)
+        public ActionResult Delete(long id)
         {
             try
             {
-                DependencyFactory.CreateTeamRepository.DeleteById(teamId);
+                DependencyFactory.CreateTeamRepository.DeleteById(id);
 
                 return RedirectToAction("Index");
             }
@@ -100,25 +83,6 @@ namespace BikeTracker.Controllers
             {
                 return View();
             }
-        }
-
-        private static TeamEditModel GetById(long teamId)
-        {
-            var team = DependencyFactory.CreateTeamRepository.GetById(teamId);
-            return new TeamEditModel
-            {
-                TeamId = team?.TeamId ?? 0,
-                Name = team?.Name
-            };
-        }
-
-        private static TeamViewModel GetViewModel(Team team)
-        {
-            return new TeamViewModel
-            {
-                TeamId = team?.TeamId ?? 0,
-                Name = team?.Name
-            };
-        }
+        }        
     }
 }
