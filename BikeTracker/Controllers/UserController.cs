@@ -1,9 +1,7 @@
 ﻿using BikeTracker.Entities;
 using BikeTracker.Models;
-using BikeTracker.Repositories;
 using System.Linq;
 using System.Web.Mvc;
-using System;
 
 namespace BikeTracker.Controllers
 {
@@ -12,7 +10,7 @@ namespace BikeTracker.Controllers
         // GET: User
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateUserRepository.GetAll()
+            return View(DependencyFactory.CreateUserRepository.GetAll()
                 .Select(GetViewModel)
                 .ToArray());
         }
@@ -20,29 +18,22 @@ namespace BikeTracker.Controllers
         // GET: User/Details/5
         public ActionResult Details(long id)
         {
-            var user = RepositoryFactory.CreateUserRepository.GetById(id);
+            var user = DependencyFactory.CreateUserRepository.GetById(id);
             return View(new UserDetailsViewModel
             {
                 UserId = user?.UserId ?? 0,
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
                 TeamName = GetTeamName(user),
-                TotalDistance = 35,
-                Activities = new[]
-                {
-                    new UserDetailsActivityViewModel
+                TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id),
+                Activities = DependencyFactory.CreateActivityRepository.GetByUserId(id)
+                    .Select(activity => new UserDetailsActivityViewModel
                     {
-                        ActivityId = 1,
-                        ActivityDate = new DateTime(2016, 8, 12),
-                        Distance = 9.5M
-                    },
-                    new UserDetailsActivityViewModel
-                    {
-                        ActivityId = 2,
-                        ActivityDate = new DateTime(2016, 8, 13),
-                        Distance = 25.5M
-                    }
-                }
+                        ActivityId = activity.ActivityId,
+                        ActivityDate = activity.ActivityDate,
+                        Distance = activity.Distance
+                    })
+                    .ToArray()
             });
         }
 
@@ -76,7 +67,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                RepositoryFactory.CreateUserRepository.Save(new User
+                DependencyFactory.CreateUserRepository.Save(new User
                 {
                     UserId = user.UserId,
                     FirstName = user.FirstName,
@@ -95,7 +86,7 @@ namespace BikeTracker.Controllers
         // GET: User/Delete/5
         public ActionResult Delete(long id)
         {
-            return View(GetViewModel(RepositoryFactory.CreateUserRepository.GetById(id)));
+            return View(GetViewModel(DependencyFactory.CreateUserRepository.GetById(id)));
         }
 
         // POST: User/Delete/5
@@ -104,7 +95,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                RepositoryFactory.CreateTeamRepository.DeleteById(teamId);
+                DependencyFactory.CreateTeamRepository.DeleteById(teamId);
 
                 return RedirectToAction("Index");
             }
@@ -116,7 +107,7 @@ namespace BikeTracker.Controllers
 
         private static UserEditModel GetById(long userId)
         {
-            var user = RepositoryFactory.CreateUserRepository.GetById(userId);
+            var user = DependencyFactory.CreateUserRepository.GetById(userId);
             return new UserEditModel
             {
                 UserId = user?.UserId ?? 0,
@@ -124,7 +115,7 @@ namespace BikeTracker.Controllers
                 LastName = user?.LastName,
                 TeamId = user?.TeamId ?? 0,
                 AvailableTeams = new[] { new SelectListItem { Value = string.Empty, Text = string.Empty } }.Concat(
-                    RepositoryFactory.CreateTeamRepository.GetAll()
+                    DependencyFactory.CreateTeamRepository.GetAll()
                         .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name })
                         .ToArray())
             };
@@ -144,7 +135,7 @@ namespace BikeTracker.Controllers
 
         private static string GetTeamName(User user)
         {
-            return RepositoryFactory.CreateTeamRepository.GetById(user?.TeamId ?? 0)?.Name;
+            return DependencyFactory.CreateTeamRepository.GetById(user?.TeamId ?? 0)?.Name;
         }
     }
 }

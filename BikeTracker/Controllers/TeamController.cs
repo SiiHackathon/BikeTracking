@@ -11,7 +11,7 @@ namespace BikeTracker.Controllers
         // GET: Team
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateTeamRepository.GetAll()
+            return View(DependencyFactory.CreateTeamRepository.GetAll()
                 .Select(GetViewModel)
                 .ToArray());
         }
@@ -19,18 +19,18 @@ namespace BikeTracker.Controllers
         // GET: Team/Details/5
         public ActionResult Details(long id)
         {
-            var team = RepositoryFactory.CreateTeamRepository.GetById(id);
+            var team = DependencyFactory.CreateTeamRepository.GetById(id);
             return View(new TeamDetailsViewModel
             {
                 TeamId = team?.TeamId ?? 0,
                 Name = team?.Name,
-                Users = RepositoryFactory.CreateUserRepository.GetByTeamId(id)
+                Users = DependencyFactory.CreateUserRepository.GetByTeamId(id)
                     .Select(user => new TeamDetailsUserViewModel
                     {
                         UserId = user?.UserId ?? 0,
                         FirstName = user?.FirstName,
                         LastName = user?.LastName,
-                        TotalDistance = 35
+                        TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id)
                     })
                     .ToArray()
             });
@@ -66,7 +66,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                RepositoryFactory.CreateTeamRepository.Save(new Team
+                DependencyFactory.CreateTeamRepository.Save(new Team
                 {
                     TeamId = team.TeamId,
                     Name = team.Name
@@ -83,7 +83,7 @@ namespace BikeTracker.Controllers
         // GET: Team/Delete/5
         public ActionResult Delete(long id)
         {
-            return View(GetViewModel(RepositoryFactory.CreateTeamRepository.GetById(id)));
+            return View(GetViewModel(DependencyFactory.CreateTeamRepository.GetById(id)));
         }
 
         // POST: Team/Delete/5
@@ -92,7 +92,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                RepositoryFactory.CreateTeamRepository.DeleteById(teamId);
+                DependencyFactory.CreateTeamRepository.DeleteById(teamId);
 
                 return RedirectToAction("Index");
             }
@@ -104,7 +104,7 @@ namespace BikeTracker.Controllers
 
         private static TeamEditModel GetById(long teamId)
         {
-            var team = RepositoryFactory.CreateTeamRepository.GetById(teamId);
+            var team = DependencyFactory.CreateTeamRepository.GetById(teamId);
             return new TeamEditModel
             {
                 TeamId = team?.TeamId ?? 0,
