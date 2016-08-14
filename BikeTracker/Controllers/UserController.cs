@@ -123,9 +123,10 @@ namespace BikeTracker.Controllers
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
                 TeamId = user?.TeamId ?? 0,
-                AvailableTeams = RepositoryFactory.CreateTeamRepository.GetAll()
-                    .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name })
-                    .ToArray()
+                AvailableTeams = new[] { new SelectListItem { Value = string.Empty, Text = string.Empty } }.Concat(
+                    RepositoryFactory.CreateTeamRepository.GetAll()
+                        .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name })
+                        .ToArray())
             };
         }
 

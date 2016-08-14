@@ -9,7 +9,7 @@ namespace BikeTracker.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         [DisplayName("Raider")]
-        public string Name { get { return string.Join(" ", FirstName, LastName); } }
+        public string Name => string.Join(" ", FirstName, LastName);
         [DisplayName("Team")]
         public string TeamName { get; set; }
         [DisplayName("Total Distance")]

@@ -8,7 +8,16 @@ namespace BikeTracker.Repositories
     public class ListUserRepository : IUserRepository
     {
         private static readonly object _locker = new object();
-        private static readonly ICollection<User> _userCollection = new List<User>();
+        private static readonly ICollection<User> _userCollection = new List<User>
+        {
+            new User
+            {
+                UserId = 1,
+                FirstName = "Jakub",
+                LastName = "Kulesza",
+                TeamId = 1
+            }
+        };
 
         public User GetById(long id)
         {

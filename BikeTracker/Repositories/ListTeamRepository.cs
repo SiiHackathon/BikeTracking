@@ -7,7 +7,14 @@ namespace BikeTracker.Repositories
     public class ListTeamRepository : ITeamRepository
     {
         private static object locker = new object();
-        private static ICollection<Team> teamCollection = new List<Team>();
+        private static ICollection<Team> teamCollection = new List<Team>
+        {
+            new Team
+            {
+                TeamId = 1,
+                Name = "WebMinions"
+            }
+        };
 
         public Team GetById(long id)
         {
