@@ -1,10 +1,10 @@
-﻿@model BikeTracker.Models.TeamViewModel
+﻿@model BikeTracker.Models.TeamEditModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Create Team";
 }
 
-<h2>Create</h2>
+<h2>Create Team</h2>
 
 
 @using (Html.BeginForm()) 
@@ -12,9 +12,8 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>TeamViewModel</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

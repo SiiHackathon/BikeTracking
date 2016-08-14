@@ -24,6 +24,11 @@ namespace BikeTracker.Repositories
             return _userCollection.FirstOrDefault(u => u.UserId == id);
         }
 
+        public IEnumerable<User> GetByTeamId(long teamId)
+        {
+            return _userCollection.Where(u => u.TeamId == teamId);
+        }
+
         public IEnumerable<User> GetAll()
         {
             return _userCollection;

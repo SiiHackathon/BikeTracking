@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using BikeTracker.Data;
@@ -24,6 +25,14 @@ namespace BikeTracker.Repositories
         {
             if (_dbContext.Entry(team).State == EntityState.Detached)
                 _dbContext.Teams.Add(team);
+
+            _dbContext.SaveChanges();
+        }
+
+        public void DeleteById(long teamId)
+        {
+            var team = _dbContext.Teams.SingleOrDefault(x => x.TeamId == teamId);
+            _dbContext.Teams.Remove(team);
 
             _dbContext.SaveChanges();
         }

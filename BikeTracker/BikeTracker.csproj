@@ -186,7 +186,10 @@
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RouteModel.cs" />
     <Compile Include="Models\StatisticsViewModel.cs" />
+    <Compile Include="Models\TeamDetailsUserViewModel.cs" />
     <Compile Include="Models\TeamStandingsModel.cs" />
+    <Compile Include="Models\TeamEditModel.cs" />
+    <Compile Include="Models\TeamDetailsViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
     <Compile Include="Models\UserDetailsActivityViewModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
@@ -274,6 +277,10 @@
     <Content Include="Views\User\DetailsActivities.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Distance.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
+    <Content Include="Views\Team\Delete.cshtml" />
+    <Content Include="Views\Team\Details.cshtml" />
+    <Content Include="Views\Team\DetailsUsers.cshtml" />
+    <Content Include="Views\Team\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

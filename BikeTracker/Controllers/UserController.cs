@@ -13,7 +13,7 @@ namespace BikeTracker.Controllers
         public ActionResult Index()
         {
             return View(RepositoryFactory.CreateUserRepository.GetAll()
-                .Select(user => GetViewModel(user))
+                .Select(GetViewModel)
                 .ToArray());
         }
 
@@ -49,7 +49,7 @@ namespace BikeTracker.Controllers
         // GET: User/Create
         public ActionResult Create()
         {
-            return View(GetById(0));
+            return View();
         }
 
         // POST: User/Create
@@ -93,18 +93,18 @@ namespace BikeTracker.Controllers
         }
 
         // GET: User/Delete/5
-        public ActionResult Delete(int id)
+        public ActionResult Delete(long id)
         {
             return View(GetViewModel(RepositoryFactory.CreateUserRepository.GetById(id)));
         }
 
         // POST: User/Delete/5
         [HttpPost]
-        public ActionResult Delete(long userId)
+        public ActionResult Delete(long teamId, FormCollection collection)
         {
             try
             {
-                RepositoryFactory.CreateUserRepository.DeleteById(userId);
+                RepositoryFactory.CreateTeamRepository.DeleteById(teamId);
 
                 return RedirectToAction("Index");
             }
