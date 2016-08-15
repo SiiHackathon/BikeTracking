@@ -182,6 +182,7 @@
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Data\BikeTrackerDbContext.cs" />
     <Compile Include="Entities\Activity.cs" />
+    <Compile Include="Entities\Entity.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">

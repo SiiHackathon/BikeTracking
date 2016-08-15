@@ -4,10 +4,11 @@ using System.Data.Entity;
 using System.Linq;
 using System.Linq.Expressions;
 using BikeTracker.Data;
+using BikeTracker.Entities;
 
 namespace BikeTracker.Repositories
 {
-    public abstract class EFRepository<T> where T : class
+    public abstract class EFRepository<T> where T : Entity
     {
         protected readonly BikeTrackerDbContext _dbContext = new BikeTrackerDbContext();
 
@@ -23,9 +24,8 @@ namespace BikeTracker.Repositories
 
         public void Save(T entity)
         {
-            if (_dbContext.Entry(entity).State == EntityState.Detached)
-                _dbContext.Set<T>().Add(entity);
-
+            _dbContext.Set<T>().Attach(entity);
+            _dbContext.Entry(entity).State = entity.Id == 0 ? EntityState.Added : EntityState.Modified;
             _dbContext.SaveChanges();
         }
 
