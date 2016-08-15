@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Web.Mvc;
 using AutoMapper;
 using BikeTracker.Entities;
@@ -14,7 +15,9 @@ namespace BikeTracker.Controllers
             var model = new AddActivityViewModel
             {
                 CreatedOn = DateTime.Today,
-                ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
+                AvailableRaiders = DependencyFactory.CreateUserRepository.GetAll()
+                        .Select(user => new SelectListItem { Value = user.UserId.ToString(), Text = $"{user.FirstName} {user.LastName}" }),
+            ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
             };
             return View(model);
         }
