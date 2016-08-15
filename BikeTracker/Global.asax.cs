@@ -16,7 +16,7 @@ namespace BikeTracker
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutomapperConfig.Configure();
 
-            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<BikeTrackerDbContext>());
+
         }
     }
 }

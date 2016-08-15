@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BikeTracker.Entities;
 
-namespace BikeTracker.Repositories
+namespace BikeTracker.Repositories.List
 {
     public class ListTeamRepository : ITeamRepository
     {
