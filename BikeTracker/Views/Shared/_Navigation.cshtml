@@ -13,13 +13,13 @@
                 @if (Request.IsAuthenticated)
                 {
                     <li>@Html.ActionLink("Add Activity", "Add", "Activity")</li>
-                    <li>@Html.ActionLink("Manage riders", "List", "User")</li>
                     <li>@Html.ActionLink("Manage teams", "List", "Team")</li>
+                    <li>@Html.ActionLink("Manage riders", "List", "User")</li>
                 }
                 else
                 {
-                    <li>@Html.ActionLink("Riders", "Index", "User")</li>
                     <li>@Html.ActionLink("Teams", "Index", "Team")</li>
+                    <li>@Html.ActionLink("Riders", "Index", "User")</li>
                 }
                 <li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>
                 <li>@Html.ActionLink("About", "About", "Home")</li>

@@ -7,7 +7,7 @@
 <h2>Teams</h2>
 
 <p>
-    @Html.ActionLink("Create new team", "Edit", new { id = 0 })
+    @Html.ActionLink("Create new team", "Edit", new { id = 0 }, new { @class = "btn btn-success" })
 </p>
 <table class="table">
     <tr>
@@ -23,11 +23,21 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TeamId }) |
-            @Html.ActionLink("Details", "Details", new { id = item.TeamId }) |
-            @Html.ActionLink("Delete", "Delete", new { id = item.TeamId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.TeamId }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default" })
+            @Html.EditorFor(m => item.TeamId, "DeleteButton", new { message = $"Are you sure you want to delete team {item.Name}?" })
         </td>
     </tr>
 }
-
 </table>
+
+@section scripts
+{
+    <script>
+    $(function() {
+        $('#delete').click(function() {
+            return confirm($(this).data("message"));
+        });
+    });
+    </script>
+}

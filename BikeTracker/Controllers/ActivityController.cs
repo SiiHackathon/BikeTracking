@@ -20,6 +20,7 @@ namespace BikeTracker.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Add(AddActivityViewModel model)
         {
             try

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Collections.Generic;
+using AutoMapper;
 using BikeTracker.Entities;
 using BikeTracker.Models;
 using BikeTracker.Repositories;
@@ -26,7 +27,7 @@ namespace BikeTracker.Controllers
             var teamRepo = DependencyFactory.CreateTeamRepository;
             var teams = teamRepo.GetAll()
                 .Where(t => !t.HasFinished)
-                .Select(ConvertToTeamModel);
+                .Select(Mapper.Map<TeamStandingsModel>);
 
             //var teams = new List<TeamStandingsModel>();
             //teams.Add(new TeamStandingsModel
@@ -44,15 +45,6 @@ namespace BikeTracker.Controllers
 
             return Json(teams, JsonRequestBehavior.AllowGet);
         }
-
-        private TeamStandingsModel ConvertToTeamModel(Team team)
-        {
-            return new TeamStandingsModel
-            {
-                TeamId = team.TeamId,
-                Name = team.Name,
-                CurrentDistance = team.CurrentDistance
-            };
-        }
+        
     }
 }

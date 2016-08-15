@@ -52,6 +52,18 @@ textarea {
 }
 
 
+form.delete {
+    display: inline-block;
+}
+
+table.edit-list {
+    table.line-height: 1.428571429;
+    vertical-align: middle;
+}
+
+table.edit-list tbody > tr > td {
+    vertical-align: middle;
+}
 
 footer{
 	bottom: 0;

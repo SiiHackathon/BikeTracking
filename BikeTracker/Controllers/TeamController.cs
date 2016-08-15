@@ -1,8 +1,8 @@
 ﻿using BikeTracker.Entities;
 using BikeTracker.Models;
 using AutoMapper;
-using BikeTracker.Repositories;
 using System.Linq;
+using System.IO;
 using System.Web.Mvc;
 
 namespace BikeTracker.Controllers
@@ -31,6 +31,8 @@ namespace BikeTracker.Controllers
             {
                 TeamId = team?.TeamId ?? 0,
                 Name = team?.Name,
+                Image = team?.Image,
+                ReverseRoute = team?.ReverseRoute ?? false,
                 Users = DependencyFactory.CreateUserRepository.GetByTeamId(id)
                     .Select(user => new TeamDetailsUserViewModel
                     {
@@ -52,21 +54,35 @@ namespace BikeTracker.Controllers
         }
         
         [HttpPost]
-        public ActionResult Edit(TeamEditModel team)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(TeamEditModel model)
         {
             try
             {
-                DependencyFactory.CreateTeamRepository.Save(new Team
-                {
-                    TeamId = team.TeamId,
-                    Name = team.Name
-                });
+                if (!ModelState.IsValid)
+                    return View(model);
 
-                return RedirectToAction("Index");
+                var newTeam = Mapper.Map<Team>(model);
+
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Teams"), fileName);
+                        file.SaveAs(path);
+                        newTeam.Image = $"~/Images/Teams/{fileName}";
+                    }
+                }
+
+                DependencyFactory.CreateTeamRepository.Save(newTeam);
+
+                return RedirectToAction("List");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
         
@@ -77,7 +93,7 @@ namespace BikeTracker.Controllers
             {
                 DependencyFactory.CreateTeamRepository.DeleteById(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             catch
             {

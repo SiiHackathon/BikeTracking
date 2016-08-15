@@ -7,9 +7,9 @@
 <h2>Raiders</h2>
 
 <p>
-    @Html.ActionLink("Create new rider", "Edit", new { id = 0 })
+    @Html.ActionLink("Create new rider", "Edit", new { id = 0 }, new { @class="btn btn-success" })
 </p>
-<table class="table">
+<table class="table edit-list">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -35,11 +35,21 @@
             @Html.DisplayFor(modelItem => item.TotalDistance)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.UserId }) |
-            @Html.ActionLink("Details", "Details", new { id=item.UserId }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.UserId })
+            @Html.ActionLink("Edit", "Edit", new { id = item.UserId }, new { @class="btn btn-default" }) 
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }, new { @class = "btn btn-default" }) 
+            @Html.EditorFor(m => item.UserId, "DeleteButton", new { message = $"Are you sure you want to delete user {item.Name}?" })
         </td>
     </tr>
 }
-
 </table>
+
+@section Scripts
+{
+    <script>
+    $(function() {
+        $('#delete').click(function() {
+            return confirm($(this).data("message"));
+        });
+    });
+    </script>
+}

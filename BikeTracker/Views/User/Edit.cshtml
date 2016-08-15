@@ -1,12 +1,12 @@
 ﻿@model BikeTracker.Models.UserEditModel
 
 @{
-    ViewBag.Title = Model.UserId == 0 ? "Create new Rider" : "Edit RIder";
+    ViewBag.Title = Model.UserId == 0 ? "Create new Rider" : "Edit Rider";
 }
 <h2>@ViewBag.Title</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -30,6 +30,13 @@
             </div>
         </div>
 
+        <div class="form-group" id="upload">
+            @Html.Label("Rider picture", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" class="form-control" name="Image" />
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.TeamId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -47,7 +54,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List")
 </div>
 
 @section Scripts {

@@ -2,6 +2,7 @@
 using BikeTracker.Entities;
 using BikeTracker.Models;
 using System.Linq;
+using System.IO;
 using System.Web.Mvc;
 
 namespace BikeTracker.Controllers
@@ -55,23 +56,35 @@ namespace BikeTracker.Controllers
         }
         
         [HttpPost]
-        public ActionResult Edit(UserEditModel user)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserEditModel model)
         {
             try
             {
-                DependencyFactory.CreateUserRepository.Save(new User
-                {
-                    UserId = user.UserId,
-                    FirstName = user.FirstName,
-                    LastName = user.LastName,
-                    TeamId = user.TeamId
-                });
+                if (!ModelState.IsValid)
+                    return View(model);
 
-                return RedirectToAction("Index");
+                var newUser = Mapper.Map<User>(model);
+
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Riders"), fileName);
+                        file.SaveAs(path);
+                        newUser.Image = $"~/Images/Riders/{fileName}";
+                    }
+                }
+
+                DependencyFactory.CreateUserRepository.Save(newUser);
+
+                return RedirectToAction("List");
             }
             catch
             {
-                return View();
+                return View(model);
             }
         }
         
@@ -82,7 +95,7 @@ namespace BikeTracker.Controllers
             {
                 DependencyFactory.CreateTeamRepository.DeleteById(id);
 
-                return RedirectToAction("Index");
+                return RedirectToAction("List");
             }
             catch
             {

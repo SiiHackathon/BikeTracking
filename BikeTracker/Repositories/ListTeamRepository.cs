@@ -13,7 +13,8 @@ namespace BikeTracker.Repositories
             new Team
             {
                 TeamId = 1,
-                Name = "WebMinions"
+                Name = "WebMinions",
+                CurrentDistance = 130400
             }
         };
 

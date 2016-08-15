@@ -4,24 +4,24 @@
     ViewBag.Title = "Team Details";
 }
 
-<h2>Team Details</h2>
+<h2>@($"Team {Model.Name} details")</h2>
 
-<div>
-    <dl class="dl-horizontal">
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
-
-    <h4>@Html.DisplayNameFor(model => model.Users)</h4>
-    @Html.Partial("DetailsUsers", Model.Users)
+<div class="row">
+    <div class="col-md-6">
+        <img alt="@Model.Name" src="@Url.Content(Model.Image)" />
+    </div>
+    <div class="col-md-6">
+        <h4>@Html.DisplayNameFor(model => model.Users)</h4>
+        @Html.Partial("DetailsUsers", Model.Users)
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TeamId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Back to List", "List")
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
 </p>

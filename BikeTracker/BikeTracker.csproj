@@ -216,6 +216,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Images\Riders\Empty.txt" />
+    <Content Include="Images\Teams\Empty.txt" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -281,17 +283,16 @@
     <Content Include="Views\Shared\_Footer.cshtml" />
     <Content Include="Views\Shared\_Navigation.cshtml" />
     <Content Include="Views\User\Details.cshtml" />
-    <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\User\DetailsActivities.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Distance.cshtml" />
     <Content Include="Views\Activity\Add.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\DateTime.cshtml" />
-    <Content Include="Views\Team\Delete.cshtml" />
     <Content Include="Views\Team\Details.cshtml" />
     <Content Include="Views\Team\DetailsUsers.cshtml" />
     <Content Include="Views\Team\Edit.cshtml" />
     <Content Include="Views\Team\List.cshtml" />
     <Content Include="Views\User\List.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\DeleteButton.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
