@@ -1,8 +1,8 @@
-﻿using BikeTracker.Entities;
+﻿using System;
 using System.Collections.Generic;
-using System;
+using BikeTracker.Entities;
 
-namespace BikeTracker.Repositories
+namespace BikeTracker.Repositories.List
 {
     public class ListActivityRepository : IActivityRepository
     {

@@ -1,7 +1,6 @@
 ﻿using BikeTracker.Entities;
 using BikeTracker.Models;
 using AutoMapper;
-using BikeTracker.Repositories;
 using System.Linq;
 using System.Web.Mvc;
 

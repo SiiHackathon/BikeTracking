@@ -1,9 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using BikeTracker.Entities;
 
-namespace BikeTracker.Repositories
+namespace BikeTracker.Repositories.List
 {
     public class ListUserRepository : IUserRepository
     {
@@ -56,7 +55,7 @@ namespace BikeTracker.Repositories
             }
         }
 
-        public void DeleteById(long id)
+        public bool DeleteById(long id)
         {
             lock (_locker)
             {
@@ -64,8 +63,10 @@ namespace BikeTracker.Repositories
                 if (existingUser != null)
                 {
                     _userCollection.Remove(existingUser);
+                    return true;
                 }
             }
+            return false;
         }
     }
 }

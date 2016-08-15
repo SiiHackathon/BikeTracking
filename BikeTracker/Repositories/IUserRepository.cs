@@ -9,6 +9,6 @@ namespace BikeTracker.Repositories
         IEnumerable<User> GetByTeamId(long teamId);
         IEnumerable<User> GetAll();
         void Save(User user);
-        void DeleteById(long id);
+        bool DeleteById(long id);
     }
 }
