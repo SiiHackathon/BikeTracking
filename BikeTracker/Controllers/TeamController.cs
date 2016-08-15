@@ -62,7 +62,10 @@ namespace BikeTracker.Controllers
                 if (!ModelState.IsValid)
                     return View(model);
 
-                var newTeam = Mapper.Map<Team>(model);
+                Team team = (model.TeamId == 0) ?
+                    new Team() :
+                    DependencyFactory.CreateTeamRepository.GetById(model.TeamId);
+                Mapper.Map(model, team);
 
                 if (Request.Files.Count > 0)
                 {
@@ -72,11 +75,11 @@ namespace BikeTracker.Controllers
                         var fileName = Path.GetFileName(file.FileName);
                         var path = Path.Combine(Server.MapPath("~/Images/Teams"), fileName);
                         file.SaveAs(path);
-                        newTeam.Image = $"~/Images/Teams/{fileName}";
+                        team.Image = $"~/Images/Teams/{fileName}";
                     }
                 }
 
-                DependencyFactory.CreateTeamRepository.Save(newTeam);
+                DependencyFactory.CreateTeamRepository.Save(team);
 
                 return RedirectToAction("List");
             }

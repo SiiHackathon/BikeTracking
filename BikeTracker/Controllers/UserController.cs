@@ -64,7 +64,10 @@ namespace BikeTracker.Controllers
                 if (!ModelState.IsValid)
                     return View(model);
 
-                var newUser = Mapper.Map<User>(model);
+                User user = (model.UserId == 0) ?
+                    new User() :
+                    DependencyFactory.CreateUserRepository.GetById(model.UserId);
+                Mapper.Map(model, user);
 
                 if (Request.Files.Count > 0)
                 {
@@ -74,11 +77,11 @@ namespace BikeTracker.Controllers
                         var fileName = Path.GetFileName(file.FileName);
                         var path = Path.Combine(Server.MapPath("~/Images/Riders"), fileName);
                         file.SaveAs(path);
-                        newUser.Image = $"~/Images/Riders/{fileName}";
+                        user.Image = $"~/Images/Riders/{fileName}";
                     }
                 }
 
-                DependencyFactory.CreateUserRepository.Save(newUser);
+                DependencyFactory.CreateUserRepository.Save(user);
 
                 return RedirectToAction("List");
             }
