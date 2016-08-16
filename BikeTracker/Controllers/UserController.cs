@@ -39,7 +39,7 @@ namespace BikeTracker.Controllers
                     {
                         ActivityId = activity.ActivityId,
                         ActivityDate = activity.ActivityDate,
-                        Distance = activity.Distance
+                        Distance = (decimal)activity.Distance / 1000
                     })
                     .ToArray()
             });
@@ -61,6 +61,8 @@ namespace BikeTracker.Controllers
         {
             try
             {
+                model.AvailableTeams = DependencyFactory.CreateTeamRepository.GetAll()
+                        .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name });
                 if (!ModelState.IsValid)
                     return View(model);
 
