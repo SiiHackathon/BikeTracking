@@ -27,23 +27,24 @@ namespace BikeTracker.Controllers
             var teamRepo = DependencyFactory.CreateTeamRepository;
             var teams = teamRepo.GetAll()
                 .Select(Mapper.Map<TeamStandingsModel>);
-
-            //var teams = new List<TeamStandingsModel>();
-            //teams.Add(new TeamStandingsModel
-            //{
-            //    TeamId = 1,
-            //    Name = "Webminions",
-            //    CurrentDistance = 659600
-            //});
-            //teams.Add(new TeamStandingsModel
-            //{
-            //    TeamId = 2,
-            //    Name = "Someone",
-            //    CurrentDistance = 183000
-            //});
-
+            
             return Json(teams, JsonRequestBehavior.AllowGet);
         }
-        
+
+        [HttpPost]
+        public JsonResult TrackCompleted(long teamId, int distance)
+        {
+            var repo = DependencyFactory.CreateTeamRepository;
+            var team = repo.GetById(teamId);
+            if (team == null)
+                return Json("Error: team not found", JsonRequestBehavior.AllowGet);
+
+            team.CurrentDistance = distance;
+            team.ReverseRoute = true;
+            team.TracksCompleted++;
+            repo.Save(team);
+
+            return Json("OK", JsonRequestBehavior.AllowGet);
+        }
     }
 }

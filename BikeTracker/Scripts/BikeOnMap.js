@@ -40,7 +40,7 @@ Sii.loadTeams = function (map, teamsUrl) {
 };
 
 Sii.addTeamMarker = function (map, team) {
-    var point = Sii.findPositionOnRoute(team.CurrentDistance, Sii.route);
+    var point = Sii.findPositionOnRoute(team.TeamId, team.CurrentDistance, Sii.route);
     var marker = new google.maps.Marker({
         position: point,
         map: map,
@@ -74,9 +74,17 @@ Sii.getDistance = function (start, end) {
     return R * c;
 };
 
-Sii.findPositionOnRoute = function (distance, leg) {
+Sii.findPositionOnRoute = function (teamId, distance, leg) {
     if (distance >= leg.distance.value) {
-        return leg.end_location;
+        distance = 2 * leg.distance.value - distance;
+        $.post({
+            url: '/Ajax/TrackCompleted',
+            data: {
+                teamId: teamId,
+                distance: distance
+            }
+        });
+        return Sii.findPositionOnRoute(teamId, distance, leg);
     }
     var i = 0;
     var currentDistance = 0;

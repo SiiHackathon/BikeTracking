@@ -49,6 +49,13 @@ namespace BikeTracker.Controllers
                     team.CurrentDistance - activity.Distance :
                     team.CurrentDistance + activity.Distance;
 
+                if (team.CurrentDistance < 0)
+                {
+                    team.ReverseRoute = false;
+                    team.CurrentDistance = -team.CurrentDistance;
+                    team.TracksCompleted++;
+                }
+
                 teamRepo.Save(team);
                 DependencyFactory.CreateActivityRepository.Save(activity);
 
