@@ -26,7 +26,6 @@ namespace BikeTracker.Controllers
         {
             var teamRepo = DependencyFactory.CreateTeamRepository;
             var teams = teamRepo.GetAll()
-                .Where(t => !t.HasFinished)
                 .Select(Mapper.Map<TeamStandingsModel>);
 
             //var teams = new List<TeamStandingsModel>();
