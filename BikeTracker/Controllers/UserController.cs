@@ -33,6 +33,7 @@ namespace BikeTracker.Controllers
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
                 TeamName = GetTeamName(user),
+                Image = user?.Image,
                 TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id),
                 Activities = DependencyFactory.CreateActivityRepository.GetByUserId(id)
                     .Select(activity => new UserDetailsActivityViewModel

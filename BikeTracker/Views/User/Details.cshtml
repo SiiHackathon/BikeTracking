@@ -6,43 +6,54 @@
 
 <h2>Raider Details</h2>
 
-<div>
-    <dl class="dl-horizontal">
+<div class="row">
+    <div class="col-md-6">
+        <img alt="@Model.LastName" src="@Url.Content(Model.Image)" />
+    </div>
+    <div class="col-md-6">
+        <dl class="dl-horizontal">
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FirstName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.LastName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.LastName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TeamName)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TeamName)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TeamName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TeamName)
+            </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.TotalDistance)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.TotalDistance)
-        </dd>
+            <dt>
+                @Html.DisplayNameFor(model => model.TotalDistance)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.TotalDistance)
+            </dd>
 
-    </dl>
+        </dl>
 
-    <h4>@Html.DisplayNameFor(model => model.Activities)</h4>
-    @Html.Partial("DetailsActivities", Model.Activities)
+        <h4>@Html.DisplayNameFor(model => model.Activities)</h4>
+        @Html.Partial("DetailsActivities", Model.Activities)
+    </div>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.UserId }) |
-    @Html.ActionLink("Back to List", "Index")
+    @if (Request.IsAuthenticated)
+    {
+        @Html.ActionLink("Back to List", "List")
+    }
+    else
+    {
+        @Html.ActionLink("Back to List", "Index")
+    }
 </p>
