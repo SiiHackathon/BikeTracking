@@ -20,7 +20,8 @@ namespace BikeTracker
                 cfg.CreateMap<TeamEditModel, Team>();
                 cfg.CreateMap<UserEditModel, User>();
                 cfg.CreateMap<AddActivityViewModel, Activity>()
-                    .ForMember(d => d.Distance, m => m.MapFrom(s => s.Length*1000));
+                    .ForMember(d => d.Distance, m => m.MapFrom(s => s.Length*1000))
+                    .ForMember(d => d.ActivityDate, m => m.MapFrom(s => s.CreatedOn));
             });
         }
     }

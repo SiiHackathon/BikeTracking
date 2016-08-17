@@ -20,7 +20,7 @@ namespace BikeTracker.Controllers
         public ActionResult List()
         {
             return View(DependencyFactory.CreateUserRepository.GetAll()
-                .Select(Mapper.Map<UserViewModel>));
+                .Select(GetViewModel));
         }
 
         [AllowAnonymous]
