@@ -102,6 +102,21 @@ namespace BikeTracker.Controllers
             {
                 return View();
             }
-        }        
-    }
+        }
+
+		[AllowAnonymous]
+		public PartialViewResult TeamStandings(long distance = 0)
+		{
+			var teamRepo = DependencyFactory.CreateTeamRepository;
+			var teams = teamRepo.GetAll()
+				.Select(m => new TeamStandingsViewModel{
+					CurrentDistance = (decimal)m.CurrentDistance / 1000,
+					DistanceToGo = (decimal)(distance - m.CurrentDistance)  / 1000,
+					FinishedLaps = m.TracksCompleted,
+					Name = m.Name,
+					TeamId = m.TeamId
+				});
+			return PartialView("_TeamStandings", teams);
+		}		
+	}
 }

@@ -4,13 +4,13 @@ html, body, #map {
     height: 100%;
     margin: 0;
     padding: 0;
+
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
-    margin-top: 70px;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -29,27 +29,17 @@ textarea {
 
 #map {
     position: relative;	  
+
 }
 
 
 .container-full {
   margin: 0 auto;
   width: 100%;
-      min-height: 100%;
-	   margin: 0 auto -60px;
+  min-height: 100%;
+  margin: 0 auto -60px;
 }
 
-#users-scores-table {
-	position:absolute;
-	top:75px;
-	left:25px;
-	background: white;
-
-}
-#users-scores-table table{
-	padding: 0px;
-	margin: 0px;
-}
 
 
 form.delete {
@@ -68,7 +58,54 @@ table.edit-list tbody > tr > td {
 footer{
 	bottom: 0;
     margin-bottom: 0;
-    height: 40px;
     background: black;
     color: white;
+}
+
+
+
+
+
+/*datatable custom stylling*/
+
+#users-scores-table {
+	position:absolute;
+	top:80px;
+	left:25px;	
+	vertical-align:middle;
+}
+
+#standings-table_length, #standings-table_info {
+	display:none;
+}
+
+div.dataTables_paginate {   
+    display: block;
+    float: right;
+    padding: 4px 20px;
+    background-color: #222;
+    border-radius: 9px;
+	}
+
+div.dataTables_paginate a{
+	color:#fff;
+	padding:3px;
+	cursor:pointer;
+}
+
+.table-inverse {
+    color: #eceeef;
+    background-color: #222;
+	border-radius:10px;
+	white-space:nowrap;
+	padding:10px;
+}
+
+.table-inverse th{	
+    border-top: none !important;
+	padding:5px 35px 5px 10px !important;
+}
+.table-inverse td{	
+    border-top: none !important;
+	padding:5px 10px !important;
 }

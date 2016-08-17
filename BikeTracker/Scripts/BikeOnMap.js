@@ -32,9 +32,9 @@ Sii.loadTeams = function (map, teamsUrl) {
         url: teamsUrl,
         success: function (data) {
             $.each(data, function (index, team) {
-                Sii.addTeamMarker(map, team);
-                Sii.addTableRow(team);
+                Sii.addTeamMarker(map, team);                
             });
+            Sii.createTeamTable();
         }
     });
 };
@@ -48,11 +48,33 @@ Sii.addTeamMarker = function (map, team) {
     });
 };
 
-Sii.addTableRow = function (team) {
-    var row = '<tr><td>' + team.Name + '</td><td>'
-        + Math.round(team.CurrentDistance / 100) / 10 + ' km</td><td>'
-        + Math.round((Sii.route.distance.value - team.CurrentDistance) / 100) / 10 + ' km</td></tr>';
-    $('#users-scores-table > table').append(row);
+Sii.createTeamTable = function () {
+	
+	$.ajax({
+		type: 'GET',		
+		url: '/Team/TeamStandings?distance=' + Sii.route.distance.value,
+		context: $('#users-scores-table'),
+		cache: false,
+		global: false,
+		complete: function () {
+		},
+		success: function (result) {
+			this.html(result);
+			$('#standings-table').DataTable({
+				order: [[1, "desc"], [2, "desc"]],				
+				searching: false,
+				language: {
+					paginate: {
+						first: "|<",
+						last: ">|",
+						next: ">",
+						previous: "<"
+					}
+				},
+			});
+		}
+	});
+    
 }
 
 Sii.getDistance = function (start, end) {
