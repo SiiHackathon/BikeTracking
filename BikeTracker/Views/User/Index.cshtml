@@ -4,10 +4,11 @@
     ViewBag.Title = "Raiders";
 }
 
-<h2>Raiders</h2>
+<h2>@ViewBag.Title</h2>
 
 <table class="table">
     <tr>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
         </th>
@@ -22,6 +23,12 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td class="">
+            @if (item.Image != null)
+            {
+            <img class="img-responsive img-circle" style="max-height:70px;" alt="@item.Name" src="@Url.Content(item.Image)" />
+            }
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
@@ -32,7 +39,7 @@
             @Html.DisplayFor(modelItem => item.TotalDistance)
         </td>
         <td>
-            @Html.ActionLink("Details", "Details", new { id=item.UserId })
+            @Html.ActionLink("Details", "Details", new { id=item.UserId }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

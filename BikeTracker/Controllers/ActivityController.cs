@@ -17,7 +17,7 @@ namespace BikeTracker.Controllers
                 CreatedOn = DateTime.Today,
                 AvailableRaiders = DependencyFactory.CreateUserRepository.GetAll()
                         .Select(user => new SelectListItem { Value = user.UserId.ToString(), Text = $"{user.FirstName} {user.LastName}" }),
-            ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
+                ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
             };
             return View(model);
         }
@@ -28,6 +28,9 @@ namespace BikeTracker.Controllers
         {
             try
             {
+                model.AvailableRaiders = DependencyFactory.CreateUserRepository.GetAll()
+                    .Select(user => new SelectListItem { Value = user.UserId.ToString(), Text = $"{user.FirstName} {user.LastName}" });
+
                 if (!ModelState.IsValid)
                     return View(model);
 

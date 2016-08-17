@@ -39,7 +39,7 @@ namespace BikeTracker.Controllers
                         UserId = user?.UserId ?? 0,
                         FirstName = user?.FirstName,
                         LastName = user?.LastName,
-                        TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id)
+                        TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(user.UserId)
                     })
                     .ToArray()
             });

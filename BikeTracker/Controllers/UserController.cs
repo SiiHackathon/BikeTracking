@@ -14,13 +14,13 @@ namespace BikeTracker.Controllers
         public ActionResult Index()
         {
             return View(DependencyFactory.CreateUserRepository.GetAll()
-                .Select(Mapper.Map<UserViewModel>));
+                .Select(GetViewModel));
         }
 
         public ActionResult List()
         {
             return View(DependencyFactory.CreateUserRepository.GetAll()
-                .Select(Mapper.Map<UserViewModel>));
+                .Select(GetViewModel));
         }
 
         [AllowAnonymous]
@@ -33,13 +33,14 @@ namespace BikeTracker.Controllers
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
                 TeamName = GetTeamName(user),
+                Image = user?.Image,
                 TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id),
                 Activities = DependencyFactory.CreateActivityRepository.GetByUserId(id)
                     .Select(activity => new UserDetailsActivityViewModel
                     {
                         ActivityId = activity.ActivityId,
                         ActivityDate = activity.ActivityDate,
-                        Distance = activity.Distance
+                        Distance = (decimal)activity.Distance / 1000
                     })
                     .ToArray()
             });
@@ -61,6 +62,8 @@ namespace BikeTracker.Controllers
         {
             try
             {
+                model.AvailableTeams = DependencyFactory.CreateTeamRepository.GetAll()
+                        .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name });
                 if (!ModelState.IsValid)
                     return View(model);
 
@@ -108,14 +111,10 @@ namespace BikeTracker.Controllers
         
         private static UserViewModel GetViewModel(User user)
         {
-            return new UserViewModel
-            {
-                UserId = user?.UserId ?? 0,
-                FirstName = user?.FirstName,
-                LastName = user?.LastName,
-                TeamName = GetTeamName(user),
-                TotalDistance = 35
-            };
+            var model = Mapper.Map<UserViewModel>(user);
+            model.TeamName = DependencyFactory.CreateTeamRepository.GetById(user.TeamId)?.Name;
+            model.TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(user.UserId);
+            return model;
         }
 
         private static string GetTeamName(User user)
