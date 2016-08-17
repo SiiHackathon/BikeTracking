@@ -14,7 +14,7 @@ namespace BikeTracker.Controllers
         public ActionResult Index()
         {
             return View(DependencyFactory.CreateUserRepository.GetAll()
-                .Select(Mapper.Map<UserViewModel>));
+                .Select(GetViewModel));
         }
 
         public ActionResult List()
@@ -111,14 +111,10 @@ namespace BikeTracker.Controllers
         
         private static UserViewModel GetViewModel(User user)
         {
-            return new UserViewModel
-            {
-                UserId = user?.UserId ?? 0,
-                FirstName = user?.FirstName,
-                LastName = user?.LastName,
-                TeamName = GetTeamName(user),
-                TotalDistance = 35
-            };
+            var model = Mapper.Map<UserViewModel>(user);
+            model.TeamName = DependencyFactory.CreateTeamRepository.GetById(user.TeamId)?.Name;
+            model.TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(user.UserId);
+            return model;
         }
 
         private static string GetTeamName(User user)
