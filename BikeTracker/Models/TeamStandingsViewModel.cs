@@ -8,6 +8,8 @@ namespace BikeTracker.Models
 
         public string Name { get; set; }
 
+        public string Image { get; set; }
+
         public decimal CurrentDistance { get; set; }
 
         public int FinishedLaps { get; set; }

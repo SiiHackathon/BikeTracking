@@ -114,6 +114,7 @@ namespace BikeTracker.Controllers
 					DistanceToGo = (decimal)(distance - m.CurrentDistance)  / 1000,
 					FinishedLaps = m.TracksCompleted,
 					Name = m.Name,
+					Image = m.Image,
 					TeamId = m.TeamId
 				});
 			return PartialView("_TeamStandings", teams);

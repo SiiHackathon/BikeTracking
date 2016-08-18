@@ -44,12 +44,12 @@ Sii.addTeamMarker = function (map, team) {
     var marker = new google.maps.Marker({
         position: point,
         map: map,
-        title: team.Name
+        title: team.Name,
+		icon: team.Image.replace("~/","")
     });
 };
 
-Sii.createTeamTable = function () {
-	
+Sii.createTeamTable = function () {	
 	$.ajax({
 		type: 'GET',		
 		url: '/Team/TeamStandings?distance=' + Sii.route.distance.value,
@@ -73,8 +73,7 @@ Sii.createTeamTable = function () {
 				},
 			});
 		}
-	});
-    
+	});    
 }
 
 Sii.getDistance = function (start, end) {
