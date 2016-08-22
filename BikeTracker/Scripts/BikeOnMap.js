@@ -45,7 +45,7 @@ Sii.addTeamMarker = function (map, team) {
         position: point,
         map: map,
         title: team.Name,
-		icon: team.Image.replace("~/","")
+		//icon: team.Image.replace("~/","")
     });
 };
 
