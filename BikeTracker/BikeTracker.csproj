@@ -382,6 +382,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="humans.txt" />
+    <Content Include="Images\Theme\bisiicle_challenge_logo.png" />
     <Content Include="Images\Theme\sii-logo.png" />
     <Content Include="Scripts\BikeOnMap.js" />
     <Content Include="Scripts\bootstrap.js" />
