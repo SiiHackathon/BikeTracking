@@ -52,7 +52,7 @@ Sii.addTeamMarker = function (map, team) {
 			'Covered distance ' + team.CurrentDistance / 1000 + 'km' +			
 			'</p>' +
 			'</td></tr>' +
-		   '</table>';
+		   '</table>';</p>
 
 	var infowindow = new google.maps.InfoWindow({
 		content: contentString
