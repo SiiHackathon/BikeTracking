@@ -188,6 +188,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddActivityViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -366,6 +367,12 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
+    <Content Include="Images\GoogleMaps\Inside-Azure.png" />
+    <Content Include="Images\GoogleMaps\Inside-Pink.png" />
+    <Content Include="Images\GoogleMaps\Insie-Chartreuse.png" />
+    <Content Include="Images\GoogleMaps\Outside-Azure.png" />
+    <Content Include="Images\GoogleMaps\Outside-Chartreuse.png" />
+    <Content Include="Images\GoogleMaps\Outside-Pink.png" />
     <Content Include="Images\Riders\Empty.txt" />
     <Content Include="Images\Teams\Empty.txt" />
     <Content Include="Content\bootstrap.css" />

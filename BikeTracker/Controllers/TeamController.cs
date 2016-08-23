@@ -4,6 +4,9 @@ using AutoMapper;
 using System.Linq;
 using System.IO;
 using System.Web.Mvc;
+using BikeTracker.Helpers;
+using System.Drawing;
+using System;
 
 namespace BikeTracker.Controllers
 {
@@ -76,15 +79,17 @@ namespace BikeTracker.Controllers
                         var path = Path.Combine(Server.MapPath("~/Images/Teams"), fileName);
                         file.SaveAs(path);
                         team.Image = $"~/Images/Teams/{fileName}";
-                    }
+						//var thumbnail = ImageHelper.CropToCircle(new Bitmap(path), Color.Transparent);							
+					}
                 }
 
                 DependencyFactory.CreateTeamRepository.Save(team);
 
                 return RedirectToAction("List");
             }
-            catch
+            catch(Exception exception)
             {
+				ViewBag.Exception = exception.Message;
                 return View(model);
             }
         }
