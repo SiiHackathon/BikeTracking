@@ -1,8 +1,6 @@
-﻿using System.Data.Entity;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using BikeTracker.Data;
 
 namespace BikeTracker
 {
@@ -15,8 +13,6 @@ namespace BikeTracker
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AutomapperConfig.Configure();
-
-
         }
     }
 }

@@ -1,8 +1,5 @@
-﻿using BikeTracker.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
+using BikeTracker.Models;
 using System.Web.Mvc;
 
 namespace BikeTracker.Controllers
@@ -12,7 +9,7 @@ namespace BikeTracker.Controllers
         // GET: News
         public ActionResult Index()
         {
-            return View(NewsList.News);
+            return View(new List<NewsDetailsViewModel>());
         }
 
         // GET: News/Details/5

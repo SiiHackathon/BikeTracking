@@ -8,6 +8,7 @@ namespace BikeTracker
         public static IUserRepository CreateUserRepository => new UserRepository();
         public static ITeamRepository CreateTeamRepository => new TeamRepository();
         public static IActivityRepository CreateActivityRepository => new ActivityRepository();
+        public static INewsRepository CreateNewsRepository => new NewsRepository();
 
         public static IActivityService CreateActivityService => new ActivityService();
     }

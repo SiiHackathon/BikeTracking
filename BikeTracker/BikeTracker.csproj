@@ -185,6 +185,7 @@
     <Compile Include="Data\BikeTrackerDbContext.cs" />
     <Compile Include="Entities\Activity.cs" />
     <Compile Include="Entities\Entity.cs" />
+    <Compile Include="Entities\News.cs" />
     <Compile Include="Entities\Team.cs" />
     <Compile Include="Entities\User.cs" />
     <Compile Include="Global.asax.cs">
@@ -193,6 +194,7 @@
     <Compile Include="Helpers\ImageHelper.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AddActivityViewModel.cs" />
+    <Compile Include="Models\NewsViewModel.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\RouteModel.cs" />
@@ -203,7 +205,7 @@
     <Compile Include="Models\TeamEditModel.cs" />
     <Compile Include="Models\TeamDetailsViewModel.cs" />
     <Compile Include="Models\TeamViewModel.cs" />
-    <Compile Include="Models\NewsViewModel.cs" />
+    <Compile Include="Models\NewsDetailsViewModel.cs" />
     <Compile Include="Models\UserDetailsActivityViewModel.cs" />
     <Compile Include="Models\UserEditModel.cs" />
     <Compile Include="Models\UserDetailsViewModel.cs" />
@@ -211,6 +213,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ActivityRepository.cs" />
     <Compile Include="Repositories\EFRepository.cs" />
+    <Compile Include="Repositories\INewsRepository.cs" />
+    <Compile Include="Repositories\NewsRepository.cs" />
     <Compile Include="Repositories\TeamRepository.cs" />
     <Compile Include="Repositories\IActivityRepository.cs" />
     <Compile Include="Repositories\ITeamRepository.cs" />
@@ -778,7 +782,7 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full_compressed.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
-    <Content Include="Views\EditNews\Index.cshtml" />
+    <Content Include="Views\EditNews\Add.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\User\DetailsActivities.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Distance.cshtml" />
@@ -791,6 +795,7 @@
     <Content Include="Views\User\List.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\DeleteButton.cshtml" />
     <Content Include="Views\Shared\_TeamStandings.cshtml" />
+    <Content Include="Views\EditNews\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
