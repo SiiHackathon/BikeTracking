@@ -1,15 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Web.Mvc;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BikeTracker.Models
 {
     public class UserViewModel
     {
         public long UserId { get; set; }
+
         public string FirstName { get; set; }
+
         public string LastName { get; set; }
-        public long TeamId { get; set; }
+
+        [DisplayName("Raider")]
+        public string Name { get { return $"{FirstName} {LastName}"; } }
+
+        [DisplayName("Team")]
         public string TeamName { get; set; }
-        public IEnumerable<SelectListItem> AvailableTeams { get; set; }
+
+        public string Image { get; set; }
+
+        [DisplayName("Total Distance")]
+        [UIHint("Distance")]
+        public decimal TotalDistance { get; set; }
     }
 }

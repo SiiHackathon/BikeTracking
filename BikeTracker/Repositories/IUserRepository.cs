@@ -6,9 +6,9 @@ namespace BikeTracker.Repositories
     public interface IUserRepository
     {
         User GetById(long id);
-
+        IEnumerable<User> GetByTeamId(long teamId);
         IEnumerable<User> GetAll();
-
-        long Save(User user);
+        void Save(User user);
+        bool DeleteById(long id);
     }
 }

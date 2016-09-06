@@ -65,3 +65,4 @@ build/artifacts/working
 temp/
 exclude
 */App_Data/*
+*.orig

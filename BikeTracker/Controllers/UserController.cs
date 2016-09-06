@@ -1,121 +1,125 @@
-﻿using BikeTracker.Entities;
+﻿using AutoMapper;
+using BikeTracker.Entities;
 using BikeTracker.Models;
-using BikeTracker.Repositories;
 using System.Linq;
+using System.IO;
 using System.Web.Mvc;
-using System;
 
 namespace BikeTracker.Controllers
 {
+    [Authorize]
     public class UserController : Controller
     {
-        // GET: User
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateUserRepository.GetAll().Select(ConvertToViewModel).ToArray());
+            return View(DependencyFactory.CreateUserRepository.GetAll()
+                .Select(GetViewModel));
         }
 
-        // GET: User/Details/5
+        public ActionResult List()
+        {
+            return View(DependencyFactory.CreateUserRepository.GetAll()
+                .Select(GetViewModel));
+        }
+
+        [AllowAnonymous]
         public ActionResult Details(long id)
         {
-            return View(GetById(id));
-        }
-
-        // GET: User/Create
-        public ActionResult Create()
-        {
-            return View(GetById(0));
-        }
-
-        // POST: User/Create
-        [HttpPost]
-        public ActionResult Create(UserViewModel user)
-        {
-            try
-            {
-                RepositoryFactory.CreateUserRepository.Save(ConvertToEntity(user));
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Edit/5
-        public ActionResult Edit(long id)
-        {
-            return View(GetById(id));
-        }
-
-        // POST: User/Edit/5
-        [HttpPost]
-        public ActionResult Edit(UserViewModel user)
-        {
-            try
-            {
-                RepositoryFactory.CreateUserRepository.Save(ConvertToEntity(user));
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: User/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: User/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        private UserViewModel GetById(long userId)
-        {
-            var user = ConvertToViewModel(RepositoryFactory.CreateUserRepository.GetById(userId));
-            user.AvailableTeams = RepositoryFactory.CreateTeamRepository.GetAll()
-                .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name }).ToArray();
-            return user;
-        }
-
-        private UserViewModel ConvertToViewModel(User user)
-        {
-            return new UserViewModel
+            var user = DependencyFactory.CreateUserRepository.GetById(id);
+            return View(new UserDetailsViewModel
             {
                 UserId = user?.UserId ?? 0,
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
-                TeamId = user?.TeamId ?? 0,
-                TeamName = RepositoryFactory.CreateTeamRepository.GetById(user?.TeamId ?? 0)?.Name
-            };
+                TeamName = GetTeamName(user),
+                Image = user?.Image,
+                TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id),
+                Activities = DependencyFactory.CreateActivityRepository.GetByUserId(id)
+                    .Select(activity => new UserDetailsActivityViewModel
+                    {
+                        ActivityId = activity.ActivityId,
+                        ActivityDate = activity.ActivityDate,
+                        Distance = (decimal)activity.Distance / 1000
+                    })
+                    .ToArray()
+            });
+        }
+        
+        public ActionResult Edit(long id)
+        {
+            var model = (id == 0) ?
+                new UserEditModel() :
+                Mapper.Map<UserEditModel>(DependencyFactory.CreateUserRepository.GetById(id));
+            model.AvailableTeams = DependencyFactory.CreateTeamRepository.GetAll()
+                        .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name });
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(UserEditModel model)
+        {
+            try
+            {
+                model.AvailableTeams = DependencyFactory.CreateTeamRepository.GetAll()
+                        .Select(team => new SelectListItem { Value = team.TeamId.ToString(), Text = team.Name });
+                if (!ModelState.IsValid)
+                    return View(model);
+
+                User user = (model.UserId == 0) ?
+                    new User() :
+                    DependencyFactory.CreateUserRepository.GetById(model.UserId);
+                Mapper.Map(model, user);
+
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Riders"), fileName);
+                        file.SaveAs(path);
+                        user.Image = $"~/Images/Riders/{fileName}";
+                    }
+                }
+
+                DependencyFactory.CreateUserRepository.Save(user);
+
+                return RedirectToAction("List");
+            }
+            catch
+            {
+                return View(model);
+            }
+        }
+        
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            try
+            {
+                DependencyFactory.CreateTeamRepository.DeleteById(id);
+
+                return RedirectToAction("List");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+        
+        private static UserViewModel GetViewModel(User user)
+        {
+            var model = Mapper.Map<UserViewModel>(user);
+            model.TeamName = DependencyFactory.CreateTeamRepository.GetById(user.TeamId)?.Name;
+            model.TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(user.UserId);
+            return model;
         }
 
-        private User ConvertToEntity(UserViewModel user)
+        private static string GetTeamName(User user)
         {
-            return new User
-            {
-                UserId = user.UserId,
-                FirstName = user.FirstName,
-                LastName = user.LastName,
-                TeamId = user.TeamId
-            };
+            return DependencyFactory.CreateTeamRepository.GetById(user?.TeamId ?? 0)?.Name;
         }
     }
 }

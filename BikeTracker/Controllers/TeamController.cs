@@ -1,101 +1,128 @@
 ﻿using BikeTracker.Entities;
 using BikeTracker.Models;
-using BikeTracker.Repositories;
+using AutoMapper;
 using System.Linq;
+using System.IO;
 using System.Web.Mvc;
+using BikeTracker.Helpers;
+using System.Drawing;
+using System;
 
 namespace BikeTracker.Controllers
 {
+    [Authorize]
     public class TeamController : Controller
     {
-        // GET: Team
+        [AllowAnonymous]
         public ActionResult Index()
         {
-            return View(RepositoryFactory.CreateTeamRepository.GetAll().Select(ConvertToViewModel).ToArray());
+            return View(DependencyFactory.CreateTeamRepository.GetAll()
+                .Select(Mapper.Map<TeamViewModel>));
+        }
+        
+        public ActionResult List()
+        {
+            return View(DependencyFactory.CreateTeamRepository.GetAll()
+                .Select(Mapper.Map<TeamViewModel>));
         }
 
-        // GET: Team/Details/5
+        [AllowAnonymous]
         public ActionResult Details(long id)
         {
-            return View(ConvertToViewModel(RepositoryFactory.CreateTeamRepository.GetById(id)));
-        }
-
-        // GET: Team/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Team/Create
-        [HttpPost]
-        public ActionResult Create(TeamViewModel team)
-        {
-            try
-            {
-                RepositoryFactory.CreateTeamRepository.Save(new Team
-                {
-                    Name = team.Name
-                });
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Team/Edit/5
-        public ActionResult Edit(long id)
-        {
-            return View();
-        }
-
-        // POST: Team/Edit/5
-        [HttpPost]
-        public ActionResult Edit(TeamViewModel team)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: Team/Delete/5
-        public ActionResult Delete(long id)
-        {
-            return View();
-        }
-
-        // POST: Team/Delete/5
-        [HttpPost]
-        public ActionResult Delete(long id, FormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        private TeamViewModel ConvertToViewModel(Team team)
-        {
-            return new TeamViewModel
+            var team = DependencyFactory.CreateTeamRepository.GetById(id);
+            return View(new TeamDetailsViewModel
             {
                 TeamId = team?.TeamId ?? 0,
-                Name = team?.Name
-            };
+                Name = team?.Name,
+                Image = team?.Image,
+                ReverseRoute = team?.ReverseRoute ?? false,
+                Users = DependencyFactory.CreateUserRepository.GetByTeamId(id)
+                    .Select(user => new TeamDetailsUserViewModel
+                    {
+                        UserId = user?.UserId ?? 0,
+                        FirstName = user?.FirstName,
+                        LastName = user?.LastName,
+                        TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(user.UserId)
+                    })
+                    .ToArray()
+            });
         }
-    }
+                
+        public ActionResult Edit(long id)
+        {
+            var model = (id == 0) ?
+                new TeamEditModel() :
+                Mapper.Map<TeamEditModel>(DependencyFactory.CreateTeamRepository.GetById(id));
+            return View(model);
+        }
+        
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(TeamEditModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                    return View(model);
+
+                Team team = (model.TeamId == 0) ?
+                    new Team() :
+                    DependencyFactory.CreateTeamRepository.GetById(model.TeamId);
+                Mapper.Map(model, team);
+
+                if (Request.Files.Count > 0)
+                {
+                    var file = Request.Files[0];
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        var fileName = Path.GetFileName(file.FileName);
+                        var path = Path.Combine(Server.MapPath("~/Images/Teams"), fileName);
+                        file.SaveAs(path);
+                        team.Image = $"~/Images/Teams/{fileName}";
+						//var thumbnail = ImageHelper.CropToCircle(new Bitmap(path), Color.Transparent);							
+					}
+                }
+
+                DependencyFactory.CreateTeamRepository.Save(team);
+
+                return RedirectToAction("List");
+            }
+            catch(Exception exception)
+            {
+				ViewBag.Exception = exception.Message;
+                return View(model);
+            }
+        }
+        
+        [HttpPost]
+        public ActionResult Delete(long id)
+        {
+            try
+            {
+                DependencyFactory.CreateTeamRepository.DeleteById(id);
+
+                return RedirectToAction("List");
+            }
+            catch
+            {
+                return View();
+            }
+        }
+
+		[AllowAnonymous]
+		public PartialViewResult TeamStandings(long distance = 0)
+		{
+			var teamRepo = DependencyFactory.CreateTeamRepository;
+			var teams = teamRepo.GetAll()
+				.Select(m => new TeamStandingsViewModel{
+					CurrentDistance = (decimal)m.CurrentDistance / 1000,
+					DistanceToGo = (decimal)(distance - m.CurrentDistance)  / 1000,
+					FinishedLaps = m.TracksCompleted,
+					Name = m.Name,
+					Image = m.Image,
+					TeamId = m.TeamId
+				});
+			return PartialView("_TeamStandings", teams);
+		}		
+	}
 }

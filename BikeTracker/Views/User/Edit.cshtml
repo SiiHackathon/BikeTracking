@@ -1,27 +1,18 @@
-﻿@model BikeTracker.Models.UserViewModel
+﻿@model BikeTracker.Models.UserEditModel
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = Model.UserId == 0 ? "Create new Rider" : "Edit Rider";
 }
+<h2>@ViewBag.Title</h2>
 
-<h2>Edit</h2>
 
-
-@using (Html.BeginForm())
+@using (Html.BeginForm(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })))
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>UserViewModel</h4>
-        <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.UserId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-            </div>
-        </div>
+        @Html.HiddenFor(model => model.UserId)
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -39,10 +30,18 @@
             </div>
         </div>
 
+        <div class="form-group" id="upload">
+            @Html.HiddenFor(m => m.Image)
+            @Html.Label("Rider picture", new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <input type="file" class="form-control" name="file" />
+            </div>
+        </div>
+
         <div class="form-group">
             @Html.LabelFor(model => model.TeamId, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TeamId, Model.AvailableTeams, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownListFor(model => model.TeamId, Model.AvailableTeams, "Select a team", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.TeamId, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -56,7 +55,7 @@
 }
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "List")
 </div>
 
 @section Scripts {

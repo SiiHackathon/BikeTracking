@@ -1,37 +1,51 @@
 ﻿@model IEnumerable<BikeTracker.Models.TeamViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Teams";
 }
 
-<h2>Index</h2>
+<h2>@ViewBag.Title</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.TeamId)
-        </th>
+        <th></th>
         <th>
             @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CurrentDistance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ReverseRoute)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TracksCompleted)
         </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.TeamId)
+        <td class="">
+            @if (item.Image != null)
+            {
+                <img class="img-responsive img-circle" style="max-height:70px;" alt="@item.Name" src="@Url.Content(item.Image)" />
+            }
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            @Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ReverseRoute)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TracksCompleted)
+        </td>
+        <td>
+            @Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default" })
         </td>
     </tr>
 }

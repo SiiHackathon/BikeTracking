@@ -1,0 +1,7 @@
+﻿@model long?
+
+@using (Html.BeginForm("Delete", HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString(), FormMethod.Post, new { @class="delete" }))
+{
+    <input type="hidden" name="id" value="@Model" />
+    <input type="submit" value="X" class="btn btn-danger deleteButton" title="Delete" id="delete_@Model" data-message="@ViewData["message"]" />
+}

@@ -1,0 +1,35 @@
+﻿<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+			<a class="navbar-brand" rel="home" href="/" title="Buy Sell Rent Everyting">
+
+				<img style="max-height:70px; margin-top: -7px;"
+					src="~/Images/Theme/bisiicle_challenge_logo.png" />
+			</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                @if (Request.IsAuthenticated)
+                {
+                    <li>@Html.ActionLink("Add Activity", "Add", "Activity")</li>
+                    <li>@Html.ActionLink("Manage teams", "List", "Team")</li>
+                    <li>@Html.ActionLink("Manage riders", "List", "User")</li>
+                }
+                else
+                {
+                    <li>@Html.ActionLink("Teams", "Index", "Team")</li>
+                    <li>@Html.ActionLink("Riders", "Index", "User")</li>
+                    @*<li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>*@
+                    <li>@Html.ActionLink("About", "About", "Home")</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+                }
+            </ul>
+            @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+</div>
