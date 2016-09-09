@@ -1,4 +1,6 @@
 ﻿using BikeTracker.Entities;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace BikeTracker.Repositories
 {
@@ -14,6 +16,11 @@ namespace BikeTracker.Repositories
             var news = GetById(newsId);
             news.IsDeleted = true;
             Save(news);
+        }
+
+        public IEnumerable<News> GetLast(int numberOfRecords)
+        {
+            return _dbContext.Set<News>().OrderByDescending(n => n.AddedOn).Take(numberOfRecords).ToList();
         }
     }
 }

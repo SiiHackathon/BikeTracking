@@ -11,13 +11,14 @@
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
+@foreach (var item in Model)
+{
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayFor(x => item.Title)
+            @Html.DisplayFor(x => item.CreatedOn)
         </th>
     </tr>
-
-@foreach (var item in Model) {
     <tr>
         <td>
             @Html.Raw(item.Content)

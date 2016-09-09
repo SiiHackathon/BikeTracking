@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using BikeTracker.Models;
 using System.Web.Mvc;
+using System.Linq;
 
 namespace BikeTracker.Controllers
 {
@@ -9,7 +10,15 @@ namespace BikeTracker.Controllers
         // GET: News
         public ActionResult Index()
         {
-            return View(new List<NewsDetailsViewModel>());
+            var news = DependencyFactory.CreateNewsRepository.GetLast(5).ToList();
+            var model = news.Select(item => new NewsDetailsViewModel()
+            {
+                NewsId = item.Id,
+                Content = item.Content,
+                Title = item.Title,
+                CreatedOn = item.AddedOn.ToShortDateString()
+            }).ToList();
+            return View(model);
         }
 
         // GET: News/Details/5
@@ -26,6 +35,7 @@ namespace BikeTracker.Controllers
 
         // POST: News/Create
         [HttpPost]
+
         public ActionResult Create(FormCollection collection)
         {
             try

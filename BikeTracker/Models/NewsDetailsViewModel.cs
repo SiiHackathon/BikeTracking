@@ -12,5 +12,6 @@ namespace BikeTracker.Models
         public string Content { get; set; }
 
         public string Title { get; set; }
+        public string CreatedOn { get; set; }
     }
 }
