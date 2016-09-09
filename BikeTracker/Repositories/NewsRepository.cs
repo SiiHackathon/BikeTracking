@@ -11,11 +11,9 @@ namespace BikeTracker.Repositories
             return GetBy(x => x.NewsId == id);
         }
 
-        public void Delete(long newsId)
+        public void DeleteById(long newsId)
         {
-            var news = GetById(newsId);
-            news.IsDeleted = true;
-            Save(news);
+            DeleteBy(x => x.Id == newsId);
         }
 
         public IEnumerable<News> GetLast(int numberOfRecords)
