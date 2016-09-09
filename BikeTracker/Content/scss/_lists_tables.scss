@@ -1,0 +1,79 @@
+/*** LISTS AND TABLES ***/
+
+// Override the default bootstrap behavior where horizontal description lists 
+// will truncate terms that are too long to fit in the left column 
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+table.edit-list {
+    line-height: 1.428571429;
+    vertical-align: middle;
+}
+
+table.edit-list tbody > tr > td {
+    vertical-align: middle;
+}
+
+
+/*** DATATABLE CUSTOM STYLING ***/
+
+#users-scores-table {
+    position: absolute;
+    top: 80px;
+    left: 25px;
+    vertical-align: middle;
+}
+
+#standings-table_length,
+#standings-table_info {
+    display: none;
+}
+
+.dataTable {
+    border-radius: 3px;
+    white-space: nowrap;
+    padding: 10px;
+	
+	td, th {
+		// border-top: none !important;
+	}
+
+	th {
+		padding: 5px 35px 5px 10px !important;
+	}
+
+	[class^="sorting"]:hover::after {
+		color: $c-sii-logo-light;
+		opacity: 1;
+	}
+
+	td {
+		padding: 5px 10px !important;
+		border-top: 1px solid mix($c-sii-logo, $c-sii);
+	}	
+}
+
+.table-inverse {
+    color: darken($c-lightest, 5%);
+    background-color: $c-sii;
+}
+
+div.dataTables_paginate {
+    display: block;
+    float: right;
+    padding: 4px 8px;
+    background-color: $c-sii;
+    border-radius: 3px;
+
+	a {
+		color: $c-sii-logo-light;
+		padding: 8px;
+		cursor: pointer;
+		
+		&:hover {
+			color: $c-lightest;
+			text-decoration: none;
+		}
+	}
+}

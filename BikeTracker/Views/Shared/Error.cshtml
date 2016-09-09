@@ -1,9 +1,9 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
-
 @{
     ViewBag.Title = "Error";
+	ViewBag.Subtitle = "An error occurred while processing your request";
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="page-title text-danger">@ViewBag.Title</h1>
+<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 

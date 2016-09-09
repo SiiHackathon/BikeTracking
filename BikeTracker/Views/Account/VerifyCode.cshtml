@@ -3,35 +3,44 @@
     ViewBag.Title = "Verify";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" })) {
-    @Html.AntiForgeryToken()
-    @Html.Hidden("provider", @Model.Provider)
-    @Html.Hidden("rememberMe", @Model.RememberMe)
-    <h4>Enter verification code</h4>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <div class="checkbox">
-                @Html.CheckBoxFor(m => m.RememberBrowser)
-                @Html.LabelFor(m => m.RememberBrowser)
-            </div>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Submit" />
-        </div>
-    </div>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
+
+<div class="row">
+	<div class="col-md-8">
+		<section class="bs-component">
+			@using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" })) {
+				@Html.AntiForgeryToken()
+				@Html.Hidden("provider", @Model.Provider)
+				@Html.Hidden("rememberMe", @Model.RememberMe)
+				<legend>Enter verification code</legend>
+				@Html.ValidationSummary("", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
+					<div class="col-md-10">
+						@Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-offset-2 col-md-10">
+						<div class="checkbox">
+							@Html.CheckBoxFor(m => m.RememberBrowser)
+							@Html.LabelFor(m => m.RememberBrowser)
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12 text-right">
+						<input type="submit" class="btn btn-primary btn-raised" value="Submit" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
