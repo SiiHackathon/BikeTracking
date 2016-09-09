@@ -22,6 +22,7 @@ namespace BikeTracker.Repositories
             return _dbContext.Set<T>().ToList();
         }
 
+
         public void Save(T entity)
         {
             _dbContext.Set<T>().Attach(entity);

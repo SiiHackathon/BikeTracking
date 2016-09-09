@@ -17,10 +17,10 @@ namespace BikeTracker.Models
         public DateTime CreatedOn { get; set; }
 
         [Required]
-        [DisplayName("Lenght (in km)")]
+        [DisplayName("Length (in km)")]
         public decimal Length { get; set; }
 
-        public IEnumerable<SelectListItem> AvailableRaiders { get; set; }
+        public IEnumerable<SelectListItem> AvailableRiders { get; set; }
 
         public string ReturnUrl { get; set; }
     }

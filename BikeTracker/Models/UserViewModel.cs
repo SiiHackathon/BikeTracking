@@ -11,7 +11,7 @@ namespace BikeTracker.Models
 
         public string LastName { get; set; }
 
-        [DisplayName("Raider")]
+        [DisplayName("Rider")]
         public string Name { get { return $"{FirstName} {LastName}"; } }
 
         [DisplayName("Team")]

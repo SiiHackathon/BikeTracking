@@ -15,7 +15,7 @@ namespace BikeTracker.Controllers
             var model = new AddActivityViewModel
             {
                 CreatedOn = DateTime.Today,
-                AvailableRaiders = DependencyFactory.CreateUserRepository.GetAll()
+                AvailableRiders = DependencyFactory.CreateUserRepository.GetAll()
                         .Select(user => new SelectListItem { Value = user.UserId.ToString(), Text = $"{user.FirstName} {user.LastName}" }),
                 ReturnUrl = HttpContext.Request.UrlReferrer.PathAndQuery
             };
@@ -28,7 +28,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                model.AvailableRaiders = DependencyFactory.CreateUserRepository.GetAll()
+                model.AvailableRiders = DependencyFactory.CreateUserRepository.GetAll()
                     .Select(user => new SelectListItem { Value = user.UserId.ToString(), Text = $"{user.FirstName} {user.LastName}" });
 
                 if (!ModelState.IsValid)

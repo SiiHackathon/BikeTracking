@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace BikeTracker.Models
+﻿namespace BikeTracker.Models
 {
     public class TeamStandingsModel
     {
