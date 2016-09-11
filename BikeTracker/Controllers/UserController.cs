@@ -10,6 +10,8 @@ namespace BikeTracker.Controllers
     [Authorize]
     public class UserController : Controller
     {
+        private const string DefaultRiderImgPath = "~/Images/Riders/Defaut.jpg";
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -33,7 +35,7 @@ namespace BikeTracker.Controllers
                 FirstName = user?.FirstName,
                 LastName = user?.LastName,
                 TeamName = GetTeamName(user),
-                Image = user?.Image,
+                Image = user?.Image ?? DefaultRiderImgPath,
                 TotalDistance = DependencyFactory.CreateActivityService.GetUserTotalDistance(id),
                 Activities = DependencyFactory.CreateActivityRepository.GetByUserId(id)
                     .Select(activity => new UserDetailsActivityViewModel
@@ -42,6 +44,7 @@ namespace BikeTracker.Controllers
                         ActivityDate = activity.ActivityDate,
                         Distance = (decimal)activity.Distance / 1000
                     })
+                    .OrderBy(x=>x.ActivityDate)
                     .ToArray()
             });
         }
@@ -99,7 +102,7 @@ namespace BikeTracker.Controllers
         {
             try
             {
-                DependencyFactory.CreateTeamRepository.DeleteById(id);
+                DependencyFactory.CreateUserRepository.DeleteById(id);
 
                 return RedirectToAction("List");
             }

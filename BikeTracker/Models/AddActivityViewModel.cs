@@ -18,6 +18,7 @@ namespace BikeTracker.Models
 
         [Required]
         [DisplayName("Length (in km)")]
+        [Range(typeof(Decimal), "1", "9999", ErrorMessage = "{0} must be a decimal/number between {1} and {2}.")]
         public decimal Length { get; set; }
 
         public IEnumerable<SelectListItem> AvailableRiders { get; set; }

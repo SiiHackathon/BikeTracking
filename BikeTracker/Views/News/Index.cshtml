@@ -5,11 +5,6 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>View</h2>
-
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
 @foreach (var item in Model)
 {
@@ -23,12 +18,9 @@
         <td>
             @Html.Raw(item.Content)
         </td>
- <!--       <td>
-            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-        </td> -->
     </tr>
 }
-
 </table>
+<div>
+    @Html.ActionLink("Show more", "Index", new { showAll = true })
+</div>
