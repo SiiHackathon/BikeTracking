@@ -13,7 +13,7 @@ namespace BikeTracker.Repositories
 
         public void DeleteById(long newsId)
         {
-            DeleteBy(x => x.Id == newsId);
+            DeleteBy(x => x.NewsId == newsId);
         }
 
         public IEnumerable<News> GetLast(int? numberOfRecords = null)
