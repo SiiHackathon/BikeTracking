@@ -1,8 +1,10 @@
 ﻿@{
     ViewBag.Title = "Login Failure";
+	ViewBag.Subtitle = "Unsuccessful login with service";
 }
 
-<hgroup>
-    <h2>@ViewBag.Title.</h2>
-    <h3 class="text-danger">Unsuccessful login with service.</h3>
-</hgroup>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
+}

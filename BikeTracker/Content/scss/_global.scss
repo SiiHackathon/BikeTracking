@@ -1,0 +1,131 @@
+/*** GENERAL ***/
+
+html,
+body,
+#map {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+	background: #f5f5f5;
+}
+
+a {
+    color: $c-sii-logo-light;
+
+	&:focus, 
+	&:hover {
+		color: $c-sii;
+	}
+}
+
+.btn-group-raised .btn.btn-primary, .btn-group-raised .input-group-btn .btn.btn-primary, .btn.btn-fab.btn-primary, .btn.btn-raised.btn-primary, .input-group-btn .btn.btn-fab.btn-primary, .input-group-btn .btn.btn-raised.btn-primary {
+	background: $c-sii-logo;
+}
+
+.btn-group-raised .btn:not(.btn-link).active.btn-primary, .btn-group-raised .btn:not(.btn-link):active.btn-primary, .btn-group-raised .btn:not(.btn-link):focus.btn-primary, .btn-group-raised .btn:not(.btn-link):hover.btn-primary, .btn-group-raised .input-group-btn .btn:not(.btn-link).active.btn-primary, .btn-group-raised .input-group-btn .btn:not(.btn-link):active.btn-primary, .btn-group-raised .input-group-btn .btn:not(.btn-link):focus.btn-primary, .btn-group-raised .input-group-btn .btn:not(.btn-link):hover.btn-primary, .btn.btn-raised:not(.btn-link).active.btn-primary, .btn.btn-raised:not(.btn-link):active.btn-primary, .btn.btn-raised:not(.btn-link):focus.btn-primary, .btn.btn-raised:not(.btn-link):hover.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link).active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):active.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):focus.btn-primary, .input-group-btn .btn.btn-raised:not(.btn-link):hover.btn-primary {
+	background: $c-sii;
+}
+
+.img-responsive {
+	display: initial;
+}
+
+small.label {
+	position: relative;
+	font-size: 0.4em;
+	top: -1.2em;
+}
+
+.label.label-info {
+	background: $c-sii-logo-light;
+}
+
+.alert {
+
+	&.alert-success {
+		background: darken(#4caf50, 10%);
+	}
+
+	&.alert-danger {
+		background: $c-accent;
+	}
+
+	a {
+		text-decoration: underline;
+		
+		&:hover {
+			text-decoration: none;
+		}
+	}
+}
+
+.text-danger {
+	color: $c-accent;
+}
+
+/*** TOP ***/
+
+.navbar-sii {
+	background: $c-sii;
+	
+	& .navbar-nav >li > a:focus, 
+	& .navbar-nav >li > a:hover {
+		background: $c-sii-logo;
+	}
+	
+	.navbar-toggle {
+		.icon-bar {
+			border-color: $c-lightest;
+			background-color: $c-lightest;
+		}
+	}
+}
+
+.navbar-brand {
+	padding: 0 !important;
+	
+	img {
+		max-height: 100%;
+	}
+}
+
+
+/*** CONTENT ***/
+
+.body-content {
+	padding-top: 70px;
+	padding-bottom: 90px;
+}
+
+.page-title {
+	font-size: 3em;
+}
+
+.page-subtitle {
+	font-style: italic;
+	opacity: 0.6;
+}
+
+.page-title + .page-subtitle {
+	margin: 0 0 45px;
+}
+
+/*** FOOTER ***/
+
+.navbar-fixed-bottom {
+    bottom: 0;
+    margin-bottom: 0;
+    color: white;
+	background: $c-sii;
+	color: $c-sii-logo;
+}
+
+.navbar-fixed-bottom_logo {
+	display: inline-block;
+	padding: 15px;
+
+	img {
+		height: 32px;
+	}
+}
