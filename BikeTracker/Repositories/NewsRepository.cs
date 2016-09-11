@@ -16,9 +16,15 @@ namespace BikeTracker.Repositories
             DeleteBy(x => x.Id == newsId);
         }
 
-        public IEnumerable<News> GetLast(int numberOfRecords)
+        public IEnumerable<News> GetLast(int? numberOfRecords = null)
         {
-            return _dbContext.Set<News>().OrderByDescending(n => n.AddedOn).Take(numberOfRecords).ToList();
+            var news = _dbContext.Set<News>().OrderByDescending(n => n.AddedOn);
+
+            if (numberOfRecords.HasValue)
+            {
+                news = (IOrderedQueryable<News>)news.Take(numberOfRecords.Value);
+            }
+            return news.ToList();
         }
     }
 }

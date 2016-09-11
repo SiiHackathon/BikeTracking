@@ -7,10 +7,11 @@ namespace BikeTracker.Controllers
 {
     public class NewsController : Controller
     {
+        private const int numberOfNewsOnPage = 3;
         // GET: News
-        public ActionResult Index()
+        public ActionResult Index(bool showAll = false)
         {
-            var news = DependencyFactory.CreateNewsRepository.GetLast(5).ToList();
+            var news = DependencyFactory.CreateNewsRepository.GetLast(showAll ? (int?)null : numberOfNewsOnPage).ToList();
             var model = news.Select(item => new NewsDetailsViewModel()
             {
                 NewsId = item.Id,

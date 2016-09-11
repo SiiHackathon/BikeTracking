@@ -9,6 +9,6 @@ namespace BikeTracker.Repositories
         IEnumerable<News> GetAll();
         void Save(News news);
         void DeleteById(long newsId);
-        IEnumerable<News> GetLast(int numberOfRecords);
+        IEnumerable<News> GetLast(int? numberOfRecords);
     }
 }
