@@ -13,6 +13,8 @@ namespace BikeTracker.Controllers
     [Authorize]
     public class TeamController : Controller
     {
+        private const string DefaultTeamImgPath = "~/Images/Teams/Defaut.jpg";
+
         [AllowAnonymous]
         public ActionResult Index()
         {
@@ -34,7 +36,7 @@ namespace BikeTracker.Controllers
             {
                 TeamId = team?.TeamId ?? 0,
                 Name = team?.Name,
-                Image = team?.Image,
+                Image = team?.Image ?? DefaultTeamImgPath,
                 ReverseRoute = team?.ReverseRoute ?? false,
                 Users = DependencyFactory.CreateUserRepository.GetByTeamId(id)
                     .Select(user => new TeamDetailsUserViewModel

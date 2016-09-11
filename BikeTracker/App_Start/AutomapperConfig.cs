@@ -7,12 +7,13 @@ namespace BikeTracker
 {
     public static class AutomapperConfig
     {
+        private const string DefaultTeamImgPath = "~/Images/Teams/Defaut.jpg";
         public static void Configure()
         {
             Mapper.Initialize(cfg => {
                 cfg.CreateMap<Team, TeamViewModel>()
                     .ForMember(d => d.CurrentDistance, m => m.MapFrom(s => (decimal)s.CurrentDistance/1000));
-                cfg.CreateMap<Team, TeamStandingsModel>();
+                cfg.CreateMap<Team, TeamStandingsModel>().ForMember(d => d.Image, m => m.MapFrom(s => s.Image ?? DefaultTeamImgPath));
                 cfg.CreateMap<Team, TeamEditModel>();
                 cfg.CreateMap<User, UserViewModel>();
                 cfg.CreateMap<User, UserEditModel>();
