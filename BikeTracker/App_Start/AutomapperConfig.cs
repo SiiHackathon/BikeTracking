@@ -7,7 +7,7 @@ namespace BikeTracker
 {
     public static class AutomapperConfig
     {
-        private const string DefaultTeamImgPath = "~/Images/Teams/Defaut.jpg";
+        private const string DefaultTeamImgPath = "~/Images/Teams/Default.png";
         public static void Configure()
         {
             Mapper.Initialize(cfg => {

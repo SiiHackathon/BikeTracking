@@ -61,7 +61,7 @@ Sii.addTeamMarker = function (map, team) {
 		position: point,
 		map: map,
 		title: team.Name,
-		icon: '/Images/GoogleMaps/Outside-Chartreuse.png',
+		icon: '/Images/GoogleMaps/bicycle-pin-64.png',
 		animation: google.maps.Animation.DROP,
 	});
 
