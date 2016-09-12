@@ -4,8 +4,8 @@
 		<tr>
 			<th>Team</th>
 			<th>Laps</th>
-			<th>Covered</th>
-			<th>To Go</th>
+			<th>Covered (km)</th>
+			<th>To Go (km)</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -14,8 +14,8 @@
 			<tr>
 				<td>@team.Name</td>
 				<td>@team.FinishedLaps</td>
-				<td>@team.CurrentDistance km.</td>
-				<td>@team.DistanceToGo km.</td>				
+				<td>@team.CurrentDistance.ToString("F1")</td>
+				<td>@team.DistanceToGo.ToString("F1")</td>				
 			</tr>
 		}
 	</tbody>	

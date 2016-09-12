@@ -129,6 +129,7 @@ Sii.createTeamTable = function () {
 		success: function (result) {
 			this.html(result);
 			$('#standings-table').DataTable({
+				pageLength: 5,
 				order: [[1, "desc"], [2, "desc"]],
 				searching: false,
 				language: {
@@ -166,12 +167,14 @@ Sii.getDistance = function (start, end) {
 Sii.findPositionOnRoute = function (teamId, distance, leg) {
 	if (distance >= leg.distance.value) {
 		distance = 2 * leg.distance.value - distance;
-		$.post({
+		$.ajax({
 			url: '/Ajax/TrackCompleted',
+			type: "POST",
 			data: {
 				teamId: teamId,
 				distance: distance
-			}
+			},
+			dataType: 'json'
 		});
 		return Sii.findPositionOnRoute(teamId, distance, leg);
 	}

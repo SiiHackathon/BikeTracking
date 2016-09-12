@@ -27,10 +27,11 @@
 			};
 
 			map = new google.maps.Map(document.getElementById('map', mapOptions), {});
-
+			
+			
 			Sii.loadRoute(map, '@Url.Action("GetRoute", "Ajax")', '@Url.Action("GetTeamStandings", "Ajax")', Sii.displayRoute);
 		};				
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=@(System.Configuration.ConfigurationManager.AppSettings["GoogleApiKey"])&callback=initMap" async defer></script>
-	console.log(Sii.route.distance.value);
+	
 }
