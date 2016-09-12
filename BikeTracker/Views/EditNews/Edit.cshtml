@@ -13,6 +13,8 @@
 	<div class="col-md-12">
 		<section class="bs-component">
 			@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" })) {
+				@Html.HiddenFor(model => model.NewsId)
+				@Html.HiddenFor(model => model.AddedOn)			
 				<legend>Create new article</legend>
 				<div class="form-group">
 					@Html.LabelFor(model => model.Title, new { @class = "col-md-2 control-label" })

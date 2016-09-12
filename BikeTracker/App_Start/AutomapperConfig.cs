@@ -15,7 +15,11 @@ namespace BikeTracker
                     .ForMember(d => d.CurrentDistance, m => m.MapFrom(s => (decimal)s.CurrentDistance/1000));
                 cfg.CreateMap<Team, TeamStandingsModel>().ForMember(d => d.Image, m => m.MapFrom(s => s.Image ?? DefaultTeamImgPath));
                 cfg.CreateMap<Team, TeamEditModel>();
-                cfg.CreateMap<User, UserViewModel>();
+				cfg.CreateMap<Team, TeamDetailsViewModel>().ForMember(d => d.Users, m => m.MapFrom(s => DependencyFactory.CreateUserRepository.GetByTeamId(s.Id)))
+				.ForMember(d => d.Image, m => m.MapFrom(s => s.Image ?? DefaultTeamImgPath));
+
+				cfg.CreateMap<User, TeamDetailsUserViewModel>();
+				cfg.CreateMap<User, UserViewModel>();
                 cfg.CreateMap<User, UserEditModel>();
 
                 cfg.CreateMap<TeamEditModel, Team>();

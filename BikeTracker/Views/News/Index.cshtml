@@ -18,8 +18,8 @@
 			@foreach (var item in Model)
 			{
 				<article>
-					<h2>@Html.DisplayFor(x => item.Title) <small class="label label-info">New!</small></h2>
-					<h5>Created on: @Html.DisplayFor(x => item.CreatedOn)</h5>
+					<h2>@Html.DisplayFor(x => item.Title) <!-- <small class="label label-info">New!</small> --></h2>
+					<h5>Created on: <span class="label">@Html.DisplayFor(x => item.AddedOn)</span></h5>
 					@Html.Raw(item.Content)
 				</article>
 				<hr />
@@ -30,9 +30,9 @@
 </div>
 
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-12 text-right">
 		<p>
-			@Html.ActionLink("Show more", "Index", new { showAll = true })
+			@Html.ActionLink("Show more", "Index", new { showAll = true }, new { @class = "btn btn-default btn-raised" })
 		</p>
 	</div>
 </div>

@@ -17,21 +17,20 @@ namespace BikeTracker.Controllers
 
         public ActionResult Edit(long id)
         {
-            var news = DependencyFactory.CreateNewsRepository.GetById(id);
-            return View("Add", new NewsDetailsViewModel {Content = news.Content, Title = news.Title, NewsId = news.NewsId });
+            var news = DependencyFactory.CreateNewsRepository.GetById(id) ?? new News { AddedOn = DateTime.Now };
+            return View("Edit", new NewsDetailsViewModel {Content = news.Content, Title = news.Title, NewsId = news.NewsId, AddedOn = news.AddedOn });
         }
 
         [HttpGet]
         public ActionResult Add()
         {
-            return View();
+            return RedirectToAction("Edit",new { id = 0 });
         }
 
         [HttpPost]
-        public ActionResult Add(NewsDetailsViewModel model)
+        public ActionResult Edit(NewsDetailsViewModel model)
         {
-            //NewsList.News.Add(model);
-            var news = new News { AddedOn = DateTime.Now, Content = model.Content, Title = model.Title };
+            var news = new News { NewsId = model.NewsId, AddedOn = model.AddedOn, Content = model.Content, Title = model.Title };
             DependencyFactory.CreateNewsRepository.Save(news);
             return RedirectToAction("Index");
         }
@@ -41,6 +40,5 @@ namespace BikeTracker.Controllers
             DependencyFactory.CreateNewsRepository.DeleteById(id);
             return RedirectToAction("Index");
         }
-
     }
 }

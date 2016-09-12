@@ -14,7 +14,9 @@ namespace BikeTracker.Models
         [DisplayName("Rides in Reverse")]
         public bool ReverseRoute { get; set; }
 
-        [DisplayName("Riders")]
+		public int CurrentDistance { get; set; }
+
+		[DisplayName("Riders")]
         public IEnumerable<TeamDetailsUserViewModel> Users { get; set; }
     }
 }
