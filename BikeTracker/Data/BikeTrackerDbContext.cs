@@ -14,10 +14,13 @@ namespace BikeTracker.Data
 		public DbSet<User> Users { get; set; }
         public DbSet<Team> Teams { get; set; }
         public DbSet<Activity> Activities { get; set; }
+        public DbSet<News> News { get; set; }
 
 	    protected override void OnModelCreating(DbModelBuilder modelBuilder)
 	    {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+            modelBuilder.Entity<News>().Map(m => m.Requires("IsDeleted").HasValue(false))
+                                       .Ignore(m => m.IsDeleted);
         }
 	}
 }

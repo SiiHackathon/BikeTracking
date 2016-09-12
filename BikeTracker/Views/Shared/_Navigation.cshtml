@@ -1,5 +1,5 @@
 ﻿<div class="navbar navbar-sii navbar-fixed-top">
-    <div class="container">
+    <div class="container-fluid">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                 <span class="icon-bar"></span>
@@ -14,12 +14,14 @@
             <ul class="nav navbar-nav">
                 @if (Request.IsAuthenticated)
                 {
+                    <li>@Html.ActionLink("Manage news", "Index","EditNews")</li>
                     <li>@Html.ActionLink("Add Activity", "Add", "Activity")</li>
                     <li>@Html.ActionLink("Manage teams", "List", "Team")</li>
                     <li>@Html.ActionLink("Manage riders", "List", "User")</li>
                 }
                 else
                 {
+                    <li>@Html.ActionLink("News","Index","News")</li>
                     <li>@Html.ActionLink("Teams", "Index", "Team")</li>
                     <li>@Html.ActionLink("Riders", "Index", "User")</li>
                     @*<li>@Html.ActionLink("Statistics", "Index", "Statistics")</li>*@
