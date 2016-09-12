@@ -1,5 +1,6 @@
 ﻿var Sii = Sii || {};
 
+
 Sii.loadRoute = function (map, url, teamsUrl, callback) {
 	$.ajax({
 		url: url,
@@ -41,34 +42,79 @@ Sii.loadTeams = function (map, teamsUrl) {
 
 Sii.addTeamMarker = function (map, team) {
 
-	var contentString = '<table class="table">' +
-			'<tr><td><h3>' +
-			team.Name +
-			'</h3></td></tr>' +
-			'<tr><td>' +
-			'<img src="' + team.Image.replace("~", "") + '" style="max-width:200px">' +
-		    '</td></tr>' +
-			'<tr><td><p>' +
-			'Covered distance ' + team.CurrentDistance / 1000 + 'km' +			
-			'</p>' +
-			'</td></tr>' +
-		   '</table>';
-
-	var infowindow = new google.maps.InfoWindow({
-		content: contentString
+	var content = '<div id="iw-container"><div class="iw-title">' +
+		team.Name +
+		'</div><div class="iw-content"><div class="iw-subTitle">Covered distance</div><img src="' +
+		team.Image.replace("~", "") +
+		'" style="max-width:100px"><p>'
+		+ team.CurrentDistance / 1000 +
+		'km</p><div class="iw-subTitle">Members</div><ul>';
+	$.each(team.Users, function (index, value) {
+		content += "<li>" + value.Name + "</li>";
 	});
+	content += '</ul></div><div class="iw-bottom-gradient"></div></div>';;
+
 
 	var point = Sii.findPositionOnRoute(team.TeamId, team.CurrentDistance, Sii.route);
+
 	var marker = new google.maps.Marker({
 		position: point,
 		map: map,
 		title: team.Name,
-		icon: '/Images/GoogleMaps/Outside-Chartreuse.png'
+		icon: '/Images/GoogleMaps/Outside-Chartreuse.png',
+		animation: google.maps.Animation.DROP,
 	});
 
-	marker.addListener('click', function () {
-		infowindow.open(map, marker);
+	marker.infowindow = new google.maps.InfoWindow({
+		content: content,
+		maxWidth: 350
 	});
+
+	google.maps.event.addListener(marker.infowindow, 'domready', function () {
+
+		// Reference to the DIV that wraps the bottom of infowindow
+		var iwOuter = $('.gm-style-iw');
+
+		iwOuter.children(':nth-child(1)').attr('style', function (i, s) { return s + 'width: 100% !important;' });
+
+		var iwBackground = iwOuter.prev();
+
+		// Removes background shadow DIV
+		iwBackground.children(':nth-child(2)').css({ 'display': 'none' });
+
+		// Removes white background DIV
+		iwBackground.children(':nth-child(4)').css({ 'display': 'none' });
+
+		// Moves the infowindow 115px to the right.
+		//iwOuter.parent().parent().css({ left: '115px' });
+
+		// Moves the shadow of the arrow 76px to the left margin.
+		iwBackground.children(':nth-child(1)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+		// Moves the arrow 76px to the left margin.
+		iwBackground.children(':nth-child(3)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
+
+		// Changes the desired tail shadow color.
+		iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1' });
+
+		// Reference to the div that groups the close button elements.
+		var iwCloseBtn = iwOuter.next();
+
+		// Apply the desired effect to the close button
+		iwCloseBtn.css({ opacity: '1', right: '38px', top: '3px', 'border-radius': '13px', 'box-shadow': '#002060 0px 0px 0px 6px' });
+
+	});
+
+	google.maps.event.addListener(marker, 'click', function () {
+		map.panTo(marker.position);
+		marker.infowindow.open(map, marker);
+	});
+
+	// Event that closes the Info Window with a click on the map
+	google.maps.event.addListener(map, 'click', function () {
+		marker.infowindow.close();
+	});
+
 };
 
 Sii.createTeamTable = function () {

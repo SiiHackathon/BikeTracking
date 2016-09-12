@@ -25,10 +25,12 @@ namespace BikeTracker.Controllers
         public JsonResult GetTeamStandings()
         {
             var teamRepo = DependencyFactory.CreateTeamRepository;
+          			
             var teams = teamRepo.GetAll()
-                .Select(Mapper.Map<TeamStandingsModel>);
-            
-            return Json(teams, JsonRequestBehavior.AllowGet);
+                .Select(Mapper.Map<TeamDetailsViewModel>);
+
+
+			return Json(teams, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

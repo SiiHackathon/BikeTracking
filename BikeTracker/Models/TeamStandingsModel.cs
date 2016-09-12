@@ -1,4 +1,6 @@
-﻿namespace BikeTracker.Models
+﻿using System.Collections.Generic;
+
+namespace BikeTracker.Models
 {
     public class TeamStandingsModel
     {
@@ -9,5 +11,5 @@
         public string Image { get; set; }
 
         public int CurrentDistance { get; set; }
-    }
+	}
 }
