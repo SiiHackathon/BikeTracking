@@ -38,7 +38,7 @@ namespace BikeTracker.Controllers
 
         public ActionResult Delete(long id)
         {
-            DependencyFactory.CreateNewsRepository.Delete(id);
+            DependencyFactory.CreateNewsRepository.DeleteById(id);
             return RedirectToAction("Index");
         }
 
