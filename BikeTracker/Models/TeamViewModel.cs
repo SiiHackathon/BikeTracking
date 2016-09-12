@@ -21,7 +21,7 @@ namespace BikeTracker.Models
 
         [DisplayName("Current Direction")]
         public string Direction {
-            get { return ReverseRoute ? "UK -> PL" : "PL -> UK"; }
+            get { return ReverseRoute ? "UK → PL" : "PL → UK"; }
         }
     }
 }

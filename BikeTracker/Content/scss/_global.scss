@@ -31,6 +31,15 @@ a {
 	display: initial;
 }
 
+.img-max-height {
+	max-height: 70px;
+}
+
+.img-max-width {
+	max-width: 240px;
+	margin-bottom: 20px;
+}
+
 small.label {
 	position: relative;
 	font-size: 0.4em;

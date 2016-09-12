@@ -95,13 +95,13 @@ Sii.addTeamMarker = function (map, team) {
 		iwBackground.children(':nth-child(3)').attr('style', function (i, s) { return s + 'left: 76px !important;' });
 
 		// Changes the desired tail shadow color.
-		iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(72, 181, 233, 0.6) 0px 1px 6px', 'z-index': '1' });
+		iwBackground.children(':nth-child(3)').find('div').children().css({ 'box-shadow': 'rgba(0, 32, 96, 0.6) 0px 1px 6px', 'z-index': '1', 'border-width': '1px', 'border-style': 'solid', 'border-color': 'transparent #002060 transparent #002060' });
 
 		// Reference to the div that groups the close button elements.
 		var iwCloseBtn = iwOuter.next();
 
 		// Apply the desired effect to the close button
-		iwCloseBtn.css({ opacity: '1', right: '38px', top: '3px', 'border-radius': '13px', 'box-shadow': '#002060 0px 0px 0px 6px' });
+		iwCloseBtn.css({ opacity: '1', right: '60px', top: '25px', 'border-radius': '13px', 'box-shadow': '#002060 0px 0px 0px 6px' });
 
 	});
 

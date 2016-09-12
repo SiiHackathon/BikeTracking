@@ -43,7 +43,10 @@
 								@Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
 							</td>
 							<td>
-								@Html.DisplayFor(modelItem => item.ReverseRoute)
+								<span class="checkbox">
+									@Html.DisplayFor(modelItem => item.ReverseRoute)
+									<label></label>
+								</span>
 							</td>
 							<td>
 								@Html.DisplayFor(modelItem => item.TracksCompleted)
