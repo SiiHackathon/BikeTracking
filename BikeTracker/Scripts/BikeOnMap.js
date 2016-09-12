@@ -74,7 +74,7 @@ Sii.addTeamMarker = function (map, team) {
 
 		// Reference to the DIV that wraps the bottom of infowindow
 		var iwOuter = $('.gm-style-iw');
-
+		var iwOuter = $('.gm-style-iw').attr('class', function (i, s) { return s + ' bike-marker' });
 		iwOuter.children(':nth-child(1)').attr('style', function (i, s) { return s + 'width: 100% !important;' });
 
 		var iwBackground = iwOuter.prev();
