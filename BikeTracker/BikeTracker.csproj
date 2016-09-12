@@ -375,15 +375,8 @@
     <Content Include="Content\DataTables\images\sort_desc.png" />
     <Content Include="Content\DataTables\images\sort_desc_disabled.png" />
     <Content Include="Content\DataTables\swf\flashExport.swf" />
-    <Content Include="Images\GoogleMaps\bicycle-pin-128.png" />
-    <Content Include="Images\GoogleMaps\bicycle-pin-32.png" />
-    <Content Include="Images\GoogleMaps\bicycle-pin-64.png" />
-    <Content Include="Images\GoogleMaps\Inside-Azure.png" />
-    <Content Include="Images\GoogleMaps\Inside-Pink.png" />
-    <Content Include="Images\GoogleMaps\Insie-Chartreuse.png" />
-    <Content Include="Images\GoogleMaps\Outside-Azure.png" />
-    <Content Include="Images\GoogleMaps\Outside-Chartreuse.png" />
-    <Content Include="Images\GoogleMaps\Outside-Pink.png" />
+    <Content Include="Images\GoogleMaps\bicycle-pin-64-from.png" />
+    <Content Include="Images\GoogleMaps\bicycle-pin-64-to.png" />
     <Content Include="Images\Riders\Empty.txt" />
     <Content Include="Images\Teams\default.png" />
     <Content Include="Images\Teams\Empty.txt" />

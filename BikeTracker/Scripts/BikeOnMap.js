@@ -61,10 +61,10 @@ Sii.addTeamMarker = function (map, team) {
 		position: point,
 		map: map,
 		title: team.Name,
-		icon: '/Images/GoogleMaps/bicycle-pin-64.png',
+		icon: team.ReverseRoute ? '/Images/GoogleMaps/bicycle-pin-64-from.png' : '/Images/GoogleMaps/bicycle-pin-64-to.png',
 		animation: google.maps.Animation.DROP,
 	});
-
+	
 	marker.infowindow = new google.maps.InfoWindow({
 		content: content,
 		maxWidth: 350
