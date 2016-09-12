@@ -782,7 +782,7 @@
     <Content Include="Views\User\Details.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full_compressed.cshtml" />
     <Content Include="Views\Shared\EditorTemplates\tinymce_full.cshtml" />
-    <Content Include="Views\EditNews\Add.cshtml" />
+    <Content Include="Views\EditNews\Edit.cshtml" />
     <Content Include="Views\News\Index.cshtml" />
     <Content Include="Views\User\DetailsActivities.cshtml" />
     <Content Include="Views\Shared\DisplayTemplates\Distance.cshtml" />

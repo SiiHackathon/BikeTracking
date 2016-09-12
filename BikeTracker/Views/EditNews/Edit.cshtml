@@ -3,7 +3,8 @@
 <h2>Index</h2>
 
 @using (Html.BeginForm()) {
-
+    @Html.HiddenFor(model => model.NewsId)
+    @Html.HiddenFor(model => model.AddedOn)
     <fieldset>
         <legend>Enter article</legend>
         <div class="editor-label">
