@@ -15,6 +15,13 @@ table.edit-list tbody > tr > td {
     vertical-align: middle;
 }
 
+.table {
+	td, 
+	th {
+		height: 100%;
+		vertical-align: middle !important;
+	}
+}
 
 /*** DATATABLE CUSTOM STYLING ***/
 
@@ -85,11 +92,17 @@ div.dataTables_paginate {
 	.material-icons {
 		float: left;
 		position: relative;
-		top: 10px;
+		top: 3px;
 	}
 	
-	.list-group-item .row-action-primary i, 
-	.list-group .list-group-item .row-picture i {
-		background: $c-sii-logo;
+	.list-group-item {
+		.row-action-primary,
+		.row-picture {
+			float: left;
+			
+			i {
+				background: $c-sii-logo;
+			}
+		}
 	}
 }

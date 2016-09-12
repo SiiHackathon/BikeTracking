@@ -94,6 +94,63 @@ small.label {
 	max-height: initial;
 }
 
+.nav a:hover .caret {
+	border-top-color: $c-lightest;
+	border-bottom-color: $c-lightest;
+}
+
+.navbar .dropdown-menu li>a:focus, .navbar .dropdown-menu li>a:hover, .navbar.navbar-default .dropdown-menu li>a:focus, .navbar.navbar-default .dropdown-menu li>a:hover {
+	color: $c-sii-logo;
+}
+
+.nav > li > a {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.navbar .dropdown-menu li>a, .navbar.navbar-default .dropdown-menu li>a {
+	font-size: 14px;
+}
+
+@media (max-width: 767px) {
+	.navbar .navbar-nav .dropdown .dropdown-toggle {
+		&:after {
+			border-top: 4px solid $c-sii-logo;
+			border-right: 4px solid transparent;
+			border-bottom: 0 dotted;
+			border-left: 4px solid transparent;
+			content: "";
+			width: 0;
+			height: 0;
+			position: relative;
+			top: 0.4em;
+		}
+		
+		&:hover::after {
+			border-top-color: $c-lightest;
+		}
+	}
+	
+	.navbar .navbar-nav .dropdown.open .dropdown-toggle {
+		&:after {
+			border-bottom: 4px solid $c-sii-logo;
+			border-right: 4px solid transparent;
+			border-top: 0 dotted;
+			border-left: 4px solid transparent;
+			content: "";
+		}
+		
+		&:hover::after {
+			border-top-color: $c-lightest;
+		}		
+	}
+	
+	.navbar .navbar-nav .dropdown.open .dropdown-menu>li>a:focus, 
+	.navbar .navbar-nav .dropdown.open .dropdown-menu>li>a:hover {
+		background-color: $c-sii-logo;
+	}
+}
+
 
 /*** CONTENT ***/
 
@@ -113,6 +170,15 @@ small.label {
 
 .page-title + .page-subtitle {
 	margin: 0 0 45px;
+}
+
+.btn-back:before {
+	font-family: 'Glyphicons Halflings';
+	content: '\e071';
+	position: relative;
+	left: -0.3em;
+	top: 0.1em;
+	color: mix($c-lightest, $c-darkest);
 }
 
 /*** FOOTER ***/

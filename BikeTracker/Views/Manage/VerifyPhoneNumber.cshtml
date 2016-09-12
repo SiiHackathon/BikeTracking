@@ -3,28 +3,52 @@
     ViewBag.Title = "Verify Phone Number";
 }
 
-<h2>@ViewBag.Title.</h2>
-
-@using (Html.BeginForm("VerifyPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
 {
-    @Html.AntiForgeryToken()
-    @Html.Hidden("phoneNumber", @Model.PhoneNumber)
-    <h4>Enter verification code</h4>
-    <h5>@ViewBag.Status</h5>
-    <hr />
-    @Html.ValidationSummary("", new { @class = "text-danger" })
-    <div class="form-group">
-        @Html.LabelFor(m => m.Code, new { @class = "col-md-2 control-label" })
-        <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" class="btn btn-default" value="Submit" />
-        </div>
-    </div>
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
+
+@if (ViewBag.Status != "")
+}
+	<div class="row">
+		<div class="col-md-8">
+			<section class="bs-component">
+				<div class="alert alert-info">
+					@ViewBag.Status
+				</div>
+			</section>
+		</div>
+	</div>
+}
+
+<div class="row">
+	<div class="col-md-12">
+		<section class="bs-component">
+		
+			@using (Html.BeginForm("VerifyPhoneNumber", "Manage", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.Hidden("phoneNumber", @Model.PhoneNumber)
+				<legend>Enter verification code</legend>
+				
+				@Html.ValidationSummary("", new { @class = "text-danger" })
+				<div class="form-group">
+					@Html.LabelFor(m => m.Code, new { @class = "col-md-3 control-label" })
+					<div class="col-md-9">
+						@Html.TextBoxFor(m => m.Code, new { @class = "form-control" })
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-12">
+						<input type="submit" class="btn btn-primary btn-raised" value="Submit" />
+					</div>
+				</div>
+			}
+
+		</section>
+	</div>
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

@@ -23,3 +23,8 @@ form.delete {
 	right: 1em;
 	pointer-events: none;
 }
+
+label[for="file"] {
+	font-size: 14px;
+	cursor: pointer;
+}

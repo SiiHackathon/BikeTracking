@@ -1,26 +1,38 @@
 ﻿@model IEnumerable<BikeTracker.Models.NewsDetailsViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "News";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<table class="table">
-@foreach (var item in Model)
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
 {
-    <tr>
-        <th>
-            @Html.DisplayFor(x => item.Title)
-            @Html.DisplayFor(x => item.CreatedOn)
-        </th>
-    </tr>
-    <tr>
-        <td>
-            @Html.Raw(item.Content)
-        </td>
-    </tr>
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
-</table>
-<div>
-    @Html.ActionLink("Show more", "Index", new { showAll = true })
+
+<div class="row">
+	<div class="col-md-12">
+		<section class="bs-component blog">
+		
+			@foreach (var item in Model)
+			{
+				<article>
+					<h2>@Html.DisplayFor(x => item.Title) <small class="label label-info">New!</small></h2>
+					<h5>Created on: @Html.DisplayFor(x => item.CreatedOn)</h5>
+					@Html.Raw(item.Content)
+				</article>
+				<hr />
+			}
+			
+		</section>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<p>
+			@Html.ActionLink("Show more", "Index", new { showAll = true })
+		</p>
+	</div>
 </div>

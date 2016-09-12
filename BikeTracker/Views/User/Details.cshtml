@@ -60,7 +60,7 @@
         </section>
 	</div>
 	<div class="col-md-3">
-		<h3>@Html.DisplayNameFor(model => model.Activities)</h3>
+		<!-- <h3>@Html.DisplayNameFor(model => model.Activities)</h3> -->
 		@Html.Partial("DetailsActivities", Model.Activities)
 	</div>
 </div>
@@ -70,11 +70,11 @@
 		<p>
 			@if (Request.IsAuthenticated)
 			{
-				@Html.ActionLink("Back to List", "List")
+				@Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-default btn-raised btn-back" })
 			}
 			else
 			{
-				@Html.ActionLink("Back to List", "Index")
+				@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-raised btn-back" })
 			}
 		</p>
 	</div>

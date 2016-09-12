@@ -11,10 +11,10 @@
 }
 
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<img alt="@Model.Name" src="@Url.Content(Model.Image)" class="img-responsive img-circle" />
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<!-- <h3>@Html.DisplayNameFor(model => model.Users)</h3> -->
 		@Html.Partial("DetailsUsers", Model.Users)
 	</div>
@@ -24,11 +24,11 @@
 		<p>
 			@if (Request.IsAuthenticated)
 			{
-				@Html.ActionLink("Back to List", "List")
+				@Html.ActionLink("Back to List", "List", null, new { @class = "btn btn-default btn-raised btn-back" })
 			}
 			else
 			{
-				@Html.ActionLink("Back to List", "Index")
+				@Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-default btn-raised btn-back" })
 			}
 		</p>
 	</div>

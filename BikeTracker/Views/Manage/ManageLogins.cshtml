@@ -4,30 +4,51 @@
     ViewBag.Title = "Manage your external logins";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
+}
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+@if (ViewBag.StatusMessage != "")
+{
+	<div class="row">
+		<div class="col-md-8">
+			<section class="bs-component">
+				<div class="alert alert-success">
+					@ViewBag.StatusMessage
+				</div>
+			</section>
+		</div>
+	</div>
+}
+
 @{
     var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
     if (loginProviders.Count() == 0) {
-        <div>
-            <p>
-                There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242">this article</a>
-                for details on setting up this ASP.NET application to support logging in via external services.
-            </p>
-        </div>
+		<div class="row">
+			<div class="col-md-8">
+				<section class="bs-component">
+					<div class="alert alert-info">
+						There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=313242" target="_blank">this article</a>
+						for details on setting up this ASP.NET application to support logging in via external services.
+					</div>
+				</section>
+			</div>
+		</div>
     }
     else
     {
         if (Model.CurrentLogins.Count > 0)
         {
-            <h4>Registered Logins</h4>
-            <table class="table">
+            <h3>Registered Logins</h3>
+			
+            <table class="table table-striped table-hover">
                 <tbody>
                     @foreach (var account in Model.CurrentLogins)
                     {
                         <tr>
-                            <td>@account.LoginProvider</td>
+                            <th>@account.LoginProvider</th>
                             <td>
                                 @if (ViewBag.ShowRemoveButton)
                                 {
@@ -37,7 +58,7 @@
                                         <div>
                                             @Html.Hidden("loginProvider", account.LoginProvider)
                                             @Html.Hidden("providerKey", account.ProviderKey)
-                                            <input type="submit" class="btn btn-default" value="Remove" title="Remove this @account.LoginProvider login from your account" />
+                                            <input type="submit" class="btn btn-default btn-raised" value="Remove" title="Remove this @account.LoginProvider login from your account" />
                                         </div>
                                     }
                                 }
@@ -53,16 +74,16 @@
         }
         if (Model.OtherLogins.Count > 0)
         {
-            using (Html.BeginForm("LinkLogin", "Manage"))
+            using (Html.BeginForm("LinkLogin", "Manage", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <div id="socialLoginList">
-                <p>
-                    @foreach (AuthenticationDescription p in Model.OtherLogins)
-                    {
-                        <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                    }
-                </p>
+					<p>
+						@foreach (AuthenticationDescription p in Model.OtherLogins)
+						{
+							<button type="submit" class="btn btn-default btn-raised" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+						}
+					</p>
                 </div>
             }
         }
