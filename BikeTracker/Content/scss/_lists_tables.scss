@@ -77,3 +77,19 @@ div.dataTables_paginate {
 		}
 	}
 }
+
+
+/*** LISTS ***/
+
+.list-group {
+	.material-icons {
+		float: left;
+		position: relative;
+		top: 10px;
+	}
+	
+	.list-group-item .row-action-primary i, 
+	.list-group .list-group-item .row-picture i {
+		background: $c-sii-logo;
+	}
+}

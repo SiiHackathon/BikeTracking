@@ -1,33 +1,46 @@
 ﻿@model IEnumerable<BikeTracker.Models.NewsViewModel>
-
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "News";
 }
 
-<h2>Index</h2>
-
-
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Title)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new {  id=item.NewsId })
-            @Html.ActionLink("Delete", "Delete", new {  id=item.NewsId })
-        </td>
-    </tr>
+<h1 class="page-title">@ViewBag.Title @Html.ActionLink("+", "Add", null, new { @class = "btn btn-primary btn-raised" })</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
 
-</table>
-<p>
-    @Html.ActionLink("Create New", "Add")
-</p>
+<div class="row">
+	<div class="col-md-12">
+		<section class="bs-component">
+
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Title)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					@foreach (var item in Model) {
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Title)
+							</td>
+							<td class="text-right">
+								@Html.ActionLink("Edit", "Edit", new { id = item.NewsId }, new { @class = "btn btn-default btn-raised" })
+								@Html.ActionLink("×", "Delete", new { id = item.NewsId }, new { @class = "btn btn-danger btn-raised" })
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+			
+			<p class="text-right">
+				@Html.ActionLink("Create", "Add", null, new { @class = "btn btn-primary btn-raised" })
+			</p>
+		
+		</section>
+	</div>
+</div>

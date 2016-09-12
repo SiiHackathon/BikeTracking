@@ -2,48 +2,59 @@
 @{ 
     ViewBag.Title = "Add activity";
 }
-<h2>@ViewBag.Title</h2>
 
-@using (Html.BeginForm())
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
 {
-        @Html.AntiForgeryToken()
-        @Html.HiddenFor(m => m.ReturnUrl)
-
-        <div class="form-horizontal">
-            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownListFor(model => model.UserId, Model.AvailableRiders, "Select a rider", new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
-                </div>
-            </div>
-                
-            <div class="form-group">
-                @Html.LabelFor(model => model.CreatedOn, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
-                </div>
-            </div>
-    
-            <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
-                </div>
-            </div>
-        </div>
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
 
-    <div>
-        <a href="@Model.ReturnUrl">Back</a>
-    </div>
+<div class="row">
+	<div class="col-md-8">
+		<section class="bs-component">
+			@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" }))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(m => m.ReturnUrl)
+				<legend>New activity</legend>
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.UserId, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9 with-arrow">
+						@Html.DropDownListFor(model => model.UserId, Model.AvailableRiders, "Select a rider", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.UserId, "", new { @class = "text-danger" })
+					</div>
+				</div>
+					
+				<div class="form-group">
+					@Html.LabelFor(model => model.CreatedOn, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9">
+						@Html.EditorFor(model => model.CreatedOn, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.CreatedOn, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.Length, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9">
+						@Html.EditorFor(model => model.Length, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.Length, "", new { @class = "text-danger" })
+					</div>
+				</div>
+		
+				<div class="form-group">
+					<div class="col-md-12 text-right">
+						<input type="submit" value="Create" class="btn btn-primary btn-raised" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+<div  class="row">
+	<div class="col-sm-12">
+		<a href="@Model.ReturnUrl">Back</a>
+	</div>
+</div>

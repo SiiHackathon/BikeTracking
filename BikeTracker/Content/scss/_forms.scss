@@ -10,3 +10,16 @@ textarea {
 form.delete {
     display: inline-block;
 }
+
+.with-arrow:after {
+	content: '';
+	vertical-align: middle;
+    border-top: 4px solid  $c-sii-logo-light;
+    border-right: 4px solid transparent;
+    border-bottom: 0 dotted;
+    border-left: 4px solid transparent;
+	position: absolute;
+	top: 1.2em;
+	right: 1em;
+	pointer-events: none;
+}

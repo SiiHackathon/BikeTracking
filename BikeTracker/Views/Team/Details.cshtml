@@ -1,27 +1,35 @@
 ﻿@model BikeTracker.Models.TeamDetailsViewModel
 
 @{
-    ViewBag.Title = "Team Details";
+    ViewBag.Title = "Team " + Model.Name + " details";
 }
 
-<h2>@($"Team {Model.Name} details")</h2>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
+}
 
 <div class="row">
-    <div class="col-md-6">
-        <img alt="@Model.Name" src="@Url.Content(Model.Image)" />
-    </div>
-    <div class="col-md-6">
-        <h4>@Html.DisplayNameFor(model => model.Users)</h4>
-        @Html.Partial("DetailsUsers", Model.Users)
-    </div>
+	<div class="col-md-4">
+		<img alt="@Model.Name" src="@Url.Content(Model.Image)" class="img-responsive img-circle" />
+	</div>
+	<div class="col-md-8">
+		<!-- <h3>@Html.DisplayNameFor(model => model.Users)</h3> -->
+		@Html.Partial("DetailsUsers", Model.Users)
+	</div>
 </div>
-<p>
-    @if (Request.IsAuthenticated)
-    {
-        @Html.ActionLink("Back to List", "List")
-    }
-    else
-    {
-        @Html.ActionLink("Back to List", "Index")
-    }
-</p>
+<div class="row">
+	<div class="col-md-12">
+		<p>
+			@if (Request.IsAuthenticated)
+			{
+				@Html.ActionLink("Back to List", "List")
+			}
+			else
+			{
+				@Html.ActionLink("Back to List", "Index")
+			}
+		</p>
+	</div>
+</div>

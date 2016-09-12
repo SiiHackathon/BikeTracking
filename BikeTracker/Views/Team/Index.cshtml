@@ -1,53 +1,66 @@
 ﻿@model IEnumerable<BikeTracker.Models.TeamViewModel>
-
 @{
     ViewBag.Title = "Teams";
 }
 
-<h2>@ViewBag.Title</h2>
-
-<table class="table">
-    <tr>
-        <th></th>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentDistance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReverseRoute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TracksCompleted)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td class="">
-            @if (item.Image != null)
-            {
-                <img class="img-responsive img-circle" style="max-height:70px;" alt="@item.Name" src="@Url.Content(item.Image)" />
-            }
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReverseRoute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TracksCompleted)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default" })
-        </td>
-    </tr>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
 
-</table>
+<div class="row">
+	<div class="col-md-12">
+		<section class="bs-component">
+
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th></th>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.CurrentDistance)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.ReverseRoute)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.TracksCompleted)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				@foreach (var item in Model) {
+					<tr>
+						<td class="">
+							@if (item.Image != null)
+							{
+								<img class="img-responsive img-circle" style="max-height:70px;" alt="@item.Name" src="@Url.Content(item.Image)" />
+							}
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.Name)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.ReverseRoute)
+						</td>
+						<td>
+							@Html.DisplayFor(modelItem => item.TracksCompleted)
+						</td>
+						<td class="text-right">
+							@Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default btn-raised" })
+						</td>
+					</tr>
+				}
+
+				</table>
+				
+		</section>
+	</div>
+</div>

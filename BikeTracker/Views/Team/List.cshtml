@@ -4,58 +4,75 @@
     ViewBag.Title = "Teams";
 }
 
-<h2>Teams</h2>
-
-<p>
-    @Html.ActionLink("Create new team", "Edit", new { id = 0 }, new { @class = "btn btn-success" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CurrentDistance)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.ReverseRoute)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TracksCompleted)
-        </th>
-        <th></th>
-    </tr>
-
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ReverseRoute)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TracksCompleted)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.TeamId }, new { @class = "btn btn-default" })
-            @Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default" })
-            @Html.EditorFor(m => item.TeamId, "DeleteButton", new { message = $"Are you sure you want to delete team {item.Name}?" })
-        </td>
-    </tr>
+<h1 class="page-title">@ViewBag.Title @Html.ActionLink("+", "Edit", new { id = 0 }, new { @class = "btn btn-primary btn-raised" })</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
-</table>
+
+<div class="row">
+	<div class="col-md-12">
+		<section class="bs-component">
+
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>
+							@Html.DisplayNameFor(model => model.Name)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.CurrentDistance)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.ReverseRoute)
+						</th>
+						<th>
+							@Html.DisplayNameFor(model => model.TracksCompleted)
+						</th>
+						<th></th>
+					</tr>
+				</thead>
+
+				<tbody>
+					@foreach (var item in Model) {
+						<tr>
+							<td>
+								@Html.DisplayFor(modelItem => item.Name)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.ReverseRoute)
+							</td>
+							<td>
+								@Html.DisplayFor(modelItem => item.TracksCompleted)
+							</td>
+							<td class="text-right">
+								@Html.ActionLink("Edit", "Edit", new { id = item.TeamId }, new { @class = "btn btn-default btn-raised" })
+								@Html.ActionLink("Details", "Details", new { id = item.TeamId }, new { @class = "btn btn-default btn-raised" })
+								@Html.EditorFor(m => item.TeamId, "DeleteButton", new { message = $"Are you sure you want to delete team {item.Name}?", @class = "btn btn-default btn-raised" })
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+					
+			<p class="text-right">
+				@Html.ActionLink("Create", "Edit", new { id = 0 }, new { @class = "btn btn-primary btn-raised" })
+			</p>
+			
+		</section>
+	</div>
+</div>
 
 @section scripts
 {
     <script>
-    $(function() {
-        $('.deleteButton').click(function() {
-            return confirm($(this).data("message"));
-        });
-    });
+		$(function() {
+			$('.deleteButton').click(function() {
+				return confirm($(this).data("message"));
+			});
+		});
     </script>
 }

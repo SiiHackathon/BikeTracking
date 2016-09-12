@@ -1,61 +1,74 @@
 ﻿@model BikeTracker.Models.UserEditModel
-
 @{
     ViewBag.Title = Model.UserId == 0 ? "Create new Rider" : "Edit Rider";
 }
-<h2>@ViewBag.Title</h2>
 
-
-@using (Html.BeginForm(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data" })))
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
 {
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.UserId)
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group" id="upload">
-            @Html.HiddenFor(m => m.Image)
-            @Html.Label("Rider picture", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <input type="file" class="form-control" name="file" />
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TeamId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TeamId, Model.AvailableTeams, "Select a team", new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.TeamId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </div>
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "List")
+<div class="row">
+	<div class="col-md-8">
+		<section class="bs-component">
+			@using (Html.BeginForm(Html.BeginForm("Edit", "User", FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal well well-lg", role = "form" })))
+			{
+				@Html.AntiForgeryToken()
+				@Html.HiddenFor(model => model.UserId)
+				<legend>Edit rider's data</legend>
+				@Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9">
+						@Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9">
+						@Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+						@Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group" id="upload">
+					@Html.HiddenFor(m => m.Image)
+					@Html.Label("Rider picture", new { @class = "control-label col-md-3" })
+					<div class="col-md-9">
+						<label for="file" class="btn btn-default btn-raised">
+							Browse <input type="file" class="form-control" name="file" id="file" />
+						</label>
+					</div>
+				</div>
+
+				<div class="form-group">
+					@Html.LabelFor(model => model.TeamId, htmlAttributes: new { @class = "control-label col-md-3" })
+					<div class="col-md-9 with-arrow">
+						@Html.DropDownListFor(model => model.TeamId, Model.AvailableTeams, "Select a team", new { @class = "form-control" })
+						@Html.ValidationMessageFor(model => model.TeamId, "", new { @class = "text-danger" })
+					</div>
+				</div>
+
+				<div class="form-group">
+					<div class="col-md-12 text-right">
+						<input type="submit" value="Save" class="btn btn-primary btn-raised" />
+					</div>
+				</div>
+			}
+		</section>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-md-12">
+		<p>
+			@Html.ActionLink("Back to List", "List")
+		</p>
+	</div>
 </div>
 
 @section Scripts {

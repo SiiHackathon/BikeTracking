@@ -17,8 +17,12 @@
 			@Html.AntiForgeryToken()
 			@Html.Hidden("rememberMe", @Model.RememberMe)
 			<legend>Select Two-Factor Authentication Provider:</legend>
-			<p class="form-group">@Html.DropDownListFor(model => model.SelectedProvider, Model.Providers)</p>
-			<p class="form-group text-right"><input type="submit" value="Submit" class="btn btn-primary btn-raised" /></p>
+			<div class="form-group with-arrow">
+				@Html.DropDownListFor(model => model.SelectedProvider, Model.Providers)
+			</div>
+			<div class="form-group text-right">
+				<input type="submit" value="Submit" class="btn btn-primary btn-raised" />
+			</div>
 		}
 		</section>
 	</div>

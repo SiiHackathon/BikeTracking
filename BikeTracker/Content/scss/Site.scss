@@ -16,19 +16,3 @@
 .blog {
 	margin-top: 50px;
 }
-
-
-/*** CONTACT ***/
-
-.list-group_address {
-	.material-icons {
-		float: left;
-		position: relative;
-		top: 10px;
-	}
-	
-	.list-group-item .row-action-primary i, 
-	.list-group .list-group-item .row-picture i {
-		background: $c-sii-logo;
-	}
-}
