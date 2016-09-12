@@ -18,5 +18,10 @@ namespace BikeTracker.Models
 
         [DisplayName("Tracks Completed")]
         public int TracksCompleted { get; set; }
+
+        [DisplayName("Current Direction")]
+        public string Direction {
+            get { return ReverseRoute ? "UK -> PL" : "PL -> UK"; }
+        }
     }
 }
