@@ -19,8 +19,6 @@ namespace BikeTracker.Data
 	    protected override void OnModelCreating(DbModelBuilder modelBuilder)
 	    {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
-            modelBuilder.Entity<News>().Map(m => m.Requires("IsDeleted").HasValue(false))
-                                       .Ignore(m => m.IsDeleted);
         }
 	}
 }

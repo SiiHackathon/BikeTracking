@@ -17,7 +17,7 @@ namespace BikeTracker.Controllers
                 NewsId = item.Id,
                 Content = item.Content,
                 Title = item.Title,
-                CreatedOn = item.AddedOn.ToShortDateString()
+                AddedOn = item.AddedOn
             }).ToList();
             return View(model);
         }
