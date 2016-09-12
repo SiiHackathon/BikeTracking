@@ -1,15 +1,11 @@
 ﻿@{
     ViewBag.Title = "Contact us";
-	ViewBag.Subtitle = "Sii - Gdańsk branch";
 }
 <h1 class="page-title">@ViewBag.Title</h1>
-@if (ViewBag.Subtitle != "")
-{
-	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
-}
 
 <div class="row">
 	<div class="col-md-5">
+        <h3 class="page-subtitle">Sii - Gdańsk branch</h3>
 		<section class="bs-component">
           <div class="list-group list-group_address">
             <div class="list-group-item">
@@ -44,60 +40,40 @@
 		  </div>
         </section>
 	</div>
-	<div class="col-md-7 well well-lg">
-		<div class="row">
-			<div class="col-sm-4 text-center">
-				<img class="img-responsive" src="http://sii.pl/wp-content/uploads/2016/02/mm_branch_gda.png" alt="Sii Gdańsk" />	
-			</div>
-			<div class="col-sm-8">
-				<form class="form-horizontal">
-					<fieldset>
-						<div class="form-group is-empty">
-							<label for="inputFirstName" class="col-md-3 control-label">First name</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="inputFirstName" placeholder="" required>
-							</div>
-						</div>
-						<div class="form-group is-empty">
-							<label for="inputLastName" class="col-md-3 control-label">Last name</label>
-							<div class="col-md-9">
-								<input type="text" class="form-control" id="inputLastName" placeholder="" required>
-							</div>
-						</div>
-						<div class="form-group is-empty">
-							<label for="inputEmail" class="col-md-3 control-label">Email</label>
-							<div class="col-md-9">
-							  <input type="email" class="form-control" id="inputEmail" placeholder="" required>
-							</div>
-						</div>
-						<div class="form-group is-empty">
-							<label for="inputMessage" class="col-md-3 control-label">Message</label>
-							<div class="col-md-9">
-								<textarea class="form-control" rows="3" id="inputMessage" placeholder="" required></textarea>
-							</div>
-						</div>
-						<div class="form-group">
-							<div class="col-sm-12">
-							  <button type="submit" class="btn btn-primary btn-raised pull-right">Submit<div class="ripple-container"></div></button>
-							</div>
-						</div>
-					</fieldset>
-				</form>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<section class="bs-component">
-					<div class="alert alert-dismissible alert-success">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>Your message has been sent :)</strong> Thank you for contacting us.</a>.
-					</div>
-					<div class="alert alert-dismissible alert-danger">
-						<button type="button" class="close" data-dismiss="alert">×</button>
-						<strong>Something went wrong :(</strong> Your message was not delivered. Please try again in a few minutes or contact us vie other channel.</a>.
-					</div>
-				</section>
-			</div>
-		</div>
-	</div>
+    <div class="col-md-5">
+        <h3 class="page-subtitle">Dollar UK</h3>
+        <section class="bs-component">
+            <div class="list-group list-group_address">
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="material-icons"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></i>
+                    </div>
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">We're located at</h4>
+                        <p class="list-group-item-text">al. Grunwaldzka 472a, 80-309 Gdańsk</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="material-icons"><span class="glyphicon glyphicon-phone" aria-hidden="true"></span></i>
+                    </div>
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">Feel free to call us</h4>
+                        <p class="list-group-item-text"><a href="tel:+48583217800">+48 58 32 17 800</a>, fax  +48 22 486 37 34</p>
+                    </div>
+                </div>
+                <div class="list-group-separator"></div>
+                <div class="list-group-item">
+                    <div class="row-action-primary">
+                        <i class="material-icons"><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></i>
+                    </div>
+                    <div class="row-content">
+                        <h4 class="list-group-item-heading">Or e-mail us</h4>
+                        <p class="list-group-item-text"><a href="mailto:informacja-gdansk@pl.sii.eu">informacja-gdansk@pl.sii.eu</a></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </div>
