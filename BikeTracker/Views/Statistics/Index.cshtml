@@ -3,7 +3,29 @@
     ViewBag.Title = "Statistics";
 }
 
-<h2>Statistics</h2>
+<h1 class="page-title">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
+}
 
-@Html.DisplayFor(x => x.AllKilometersPassed)
-@Html.DisplayFor(x => x.AverageKilometersPassedByUser)
+<div class="row">
+	<div class="col-md-8">
+		<section class="bs-component">
+			<table class="table table-striped table-hover">
+				<thead>
+					<tr>
+						<th>Total [km]</th>
+						<th>Average distance per user [km]</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>@Html.DisplayFor(x => x.AllKilometersPassed)</td>
+						<td>@Html.DisplayFor(x => x.AverageKilometersPassedByUser)</td>
+					</tr>
+				</tbody>
+			</table>
+		</section>
+	</div>
+</div>
