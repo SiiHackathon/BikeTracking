@@ -48,17 +48,8 @@ namespace BikeTracker.Controllers
                     return View(model);
                 }
                 var activity = Mapper.Map<Activity>(model);
-                team.CurrentDistance = (team.ReverseRoute) ?
-                    team.CurrentDistance - activity.Distance :
-                    team.CurrentDistance + activity.Distance;
-
-                if (team.CurrentDistance < 0)
-                {
-                    team.ReverseRoute = false;
-                    team.CurrentDistance = -team.CurrentDistance;
-                    team.TracksCompleted++;
-                }
-
+                team.CurrentDistance += activity.Distance;
+                
                 teamRepo.Save(team);
                 DependencyFactory.CreateActivityRepository.Save(activity);
 

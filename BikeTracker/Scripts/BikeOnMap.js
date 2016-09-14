@@ -55,7 +55,7 @@ Sii.addTeamMarker = function (map, team) {
 	content += '</ul></div><div class="iw-bottom-gradient"></div></div>';;
 
 
-	var point = Sii.findPositionOnRoute(team.TeamId, team.CurrentDistance, Sii.route);
+	var point = Sii.findPositionOnRoute(team.TeamId, team.CurrentDistance, Sii.route, team.ReverseRoute);
 
 	var marker = new google.maps.Marker({
 		position: point,
@@ -164,9 +164,9 @@ Sii.getDistance = function (start, end) {
 	return R * c;
 };
 
-Sii.findPositionOnRoute = function (teamId, distance, leg) {
+Sii.findPositionOnRoute = function (teamId, distance, leg, isReverse) {
 	if (distance >= leg.distance.value) {
-		distance = 2 * leg.distance.value - distance;
+	    distance = distance - leg.distance.value;
 		$.ajax({
 			url: '/Ajax/TrackCompleted',
 			type: "POST",
@@ -176,7 +176,10 @@ Sii.findPositionOnRoute = function (teamId, distance, leg) {
 			},
 			dataType: 'json'
 		});
-		return Sii.findPositionOnRoute(teamId, distance, leg);
+		return Sii.findPositionOnRoute(teamId, distance, leg, !isReverse);
+	}
+	if (isReverse) {
+	    distance = leg.distance.value - distance;
 	}
 	var i = 0;
 	var currentDistance = 0;
