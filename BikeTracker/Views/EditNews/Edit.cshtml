@@ -12,7 +12,7 @@
 <div class="row">
 	<div class="col-md-12">
 		<section class="bs-component">
-			@using (Html.BeginForm("", "", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" })) {
+			@using (Html.BeginForm("Edit", "EditNews", FormMethod.Post, new { @class = "form-horizontal well well-lg", role = "form" })) {
 				@Html.HiddenFor(model => model.NewsId)
 				@Html.HiddenFor(model => model.AddedOn)			
 				<legend>Create new article</legend>
