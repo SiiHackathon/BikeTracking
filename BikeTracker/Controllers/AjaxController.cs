@@ -42,7 +42,7 @@ namespace BikeTracker.Controllers
                 return Json("Error: team not found", JsonRequestBehavior.AllowGet);
 
             team.CurrentDistance = distance;
-            team.ReverseRoute = true;
+            team.ReverseRoute = !team.ReverseRoute;
             team.TracksCompleted++;
             repo.Save(team);
 

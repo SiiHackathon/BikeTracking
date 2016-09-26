@@ -28,3 +28,45 @@ label[for="file"] {
 	font-size: 14px;
 	cursor: pointer;
 }
+
+.checkbox, 
+.radio {
+	label {
+		&,
+		.form-group & {
+			font-size: 12px;
+		}
+		
+		&:before {
+			content: '\e013';
+			font-family: 'Glyphicons Halflings';
+			display: inline-block;
+			width: 1.8em;
+			height: 1.8em;
+			margin-right: 0.5em;
+			margin-left: -20px;
+			border: 2px solid mix($c-darkest, $c-lightest, 30%);
+			color: transparent;
+			text-align: center;
+		}
+	}
+	
+	input:checked + label,
+	input:checked + input + label {
+		&:before {
+			color: $c-darkest;
+		}
+	}
+	
+	input:disabled + label,
+	input:disabled + input + label {
+		cursor: not-allowed;
+	}
+	
+	input:checked:disabled + label,
+	input:checked:disabled + input + label {
+		&:before {
+			color: mix($c-darkest, $c-lightest, 30%);
+		}
+	}
+}

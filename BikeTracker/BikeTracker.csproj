@@ -377,6 +377,7 @@
     <Content Include="Content\DataTables\swf\flashExport.swf" />
     <Content Include="Images\GoogleMaps\bicycle-pin-64-from.png" />
     <Content Include="Images\GoogleMaps\bicycle-pin-64-to.png" />
+    <Content Include="Images\Riders\Defaut.jpg" />
     <Content Include="Images\Riders\Empty.txt" />
     <Content Include="Images\Teams\default.png" />
     <Content Include="Images\Teams\Empty.txt" />

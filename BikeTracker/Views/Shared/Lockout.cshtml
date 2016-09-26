@@ -4,7 +4,18 @@
     ViewBag.Title = "Locked Out";
 }
 
-<hgroup>
-    <h1 class="text-danger">Locked out.</h1>
-    <h2 class="text-danger">This account has been locked out, please try again later.</h2>
-</hgroup>
+<h1 class="page-title text-danger">@ViewBag.Title</h1>
+@if (ViewBag.Subtitle != "")
+{
+	<h3 class="page-subtitle">@ViewBag.Subtitle</h3>
+}
+
+<div class="row">
+	<div class="col-md-8">
+		<section class="bs-component">
+			<div class="alert alert-error">
+				<strong>This account has been locked out</strong>, please try again later.
+			</div>
+		</section>
+	</div>
+</div>

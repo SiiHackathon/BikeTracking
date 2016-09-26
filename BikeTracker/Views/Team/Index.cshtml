@@ -24,7 +24,7 @@
 							@Html.DisplayNameFor(model => model.CurrentDistance)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.ReverseRoute)
+							@Html.DisplayNameFor(model => model.Direction)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.TracksCompleted)
@@ -38,7 +38,7 @@
 						<td class="">
 							@if (item.Image != null)
 							{
-								<img class="img-responsive img-circle" style="max-height:70px;" alt="@item.Name" src="@Url.Content(item.Image)" />
+								<img class="img-responsive img-circle img-max-height" alt="@item.Name" src="@Url.Content(item.Image)" />
 							}
 						</td>
 						<td>
@@ -48,7 +48,7 @@
 							@Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.ReverseRoute)
+							@Html.DisplayFor(modelItem => item.Direction)
 						</td>
 						<td>
 							@Html.DisplayFor(modelItem => item.TracksCompleted)
