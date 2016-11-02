@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "Teams";
 }
+<link href="~/Content/DataTables/css/dataTables.bootstrap.min.css" rel="stylesheet" />
 
 <h1 class="page-title">@ViewBag.Title</h1>
 @if (ViewBag.Subtitle != "")
@@ -13,7 +14,7 @@
 	<div class="col-md-12">
 		<section class="bs-component">
 
-			<table class="table table-striped table-hover">
+			<table id="teams-table" class="table table-striped table-hover">
 				<thead>
 					<tr>
 						<th></th>
@@ -21,7 +22,7 @@
 							@Html.DisplayNameFor(model => model.Name)
 						</th>
 						<th>
-							@Html.DisplayNameFor(model => model.CurrentDistance)
+							@Html.DisplayNameFor(model => model.CurrentDistance) (km)
 						</th>
 						<th>
 							@Html.DisplayNameFor(model => model.Direction)
@@ -45,7 +46,7 @@
 							@Html.DisplayFor(modelItem => item.Name)
 						</td>
 						<td>
-							@Html.DisplayFor(modelItem => item.CurrentDistance, "Distance")
+							@Html.DisplayFor(modelItem => item.CurrentDistance)
 						</td>
 						<td>
 							@Html.DisplayFor(modelItem => item.Direction)
@@ -64,3 +65,15 @@
 		</section>
 	</div>
 </div>
+@section scripts
+{
+	<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+	<script>
+		
+		$('#teams-table').DataTable({
+			"paging": false,
+			"order": [[2, "desc"]],
+			"info": false
+		});
+	</script>
+}

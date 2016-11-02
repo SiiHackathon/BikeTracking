@@ -7,6 +7,22 @@
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 	<link type="text/plain" rel="author" href="@Url.Content("~/humans.txt")" />
+	<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.2/cookieconsent.min.css" />
+	<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.2/cookieconsent.min.js"></script>
+	<script>
+		window.addEventListener("load", function () {
+			window.cookieconsent.initialise({
+				"palette": {
+					"popup": {
+						"background": "#002060"
+					},
+					"button": {
+						"background": "#fff"
+					}
+				}
+			})
+		});
+	</script>
 </head>
 <body>
     @Html.Partial("_Navigation")

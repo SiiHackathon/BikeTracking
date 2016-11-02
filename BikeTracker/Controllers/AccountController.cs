@@ -12,7 +12,7 @@ using BikeTracker.Models;
 
 namespace BikeTracker.Controllers
 {
-    [Authorize]
+    
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
